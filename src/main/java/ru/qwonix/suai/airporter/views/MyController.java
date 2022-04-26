@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 public class MyController implements Initializable {
     public ListView<Ticket> listView;
 
-    private ObservableList<Ticket> ticketObservableList;
+    private final ObservableList<Ticket> ticketObservableList;
 
     public MyController() {
         ticketObservableList = FXCollections.observableArrayList();

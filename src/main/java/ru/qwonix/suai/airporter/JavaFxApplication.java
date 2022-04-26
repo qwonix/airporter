@@ -8,14 +8,14 @@ import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
-import ru.qwonix.suai.airporter.views.MyController;
+import ru.qwonix.suai.airporter.views.MainController;
 
 public class JavaFxApplication extends Application {
 
     private ConfigurableApplicationContext applicationContext;
 
     @Override
-    public void init() throws Exception {
+    public void init() {
         String[] args = getParameters().getRaw().toArray(new String[0]);
 
         this.applicationContext = new SpringApplicationBuilder()
@@ -24,16 +24,16 @@ public class JavaFxApplication extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
-        Parent root = fxWeaver.loadView(MyController.class);
+        Parent root = fxWeaver.loadView(MainController.class);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
     @Override
-    public void stop() throws Exception {
+    public void stop() {
         this.applicationContext.close();
         Platform.exit();
     }
