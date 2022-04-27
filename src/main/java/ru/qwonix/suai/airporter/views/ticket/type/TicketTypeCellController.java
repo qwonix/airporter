@@ -1,30 +1,35 @@
-package ru.qwonix.suai.airporter.views.ticket;
+package ru.qwonix.suai.airporter.views.ticket.type;
 
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import net.rgielen.fxweaver.core.FxmlView;
+
 import org.springframework.stereotype.Component;
 import ru.qwonix.suai.airporter.model.entity.TicketType;
 
 import java.time.format.DateTimeFormatter;
 
 @Component
-@FxmlView("ticket-type-cell-layout.fxml")
+
 public class TicketTypeCellController {
 
-
+    @FXML
     public Button selectTicketButton;
+    @FXML
     public Label priceLabel;
+    @FXML
     public Label ticketsCountLabel;
+    @FXML
     public Label airlineLabel;
+    @FXML
     public Label conditionLabel;
-    public Label departureTimeLabel;
-    public Label departureCityLabel;
-    public Label departureDateLabel;
+
+    @FXML
+    public Label departureTimeLabel, departureCityLabel, departureDateLabel;
+    @FXML
     public Label flightDurationLabel;
-    public Label arrivalTimeLabel;
-    public Label arrivalCityLabel;
-    public Label arrivalDateLabel;
+    @FXML
+    public Label arrivalTimeLabel, arrivalCityLabel, arrivalDateLabel;
 
     public void CellSetup(TicketType ticketType) {
         priceLabel.setText(ticketType.getPrice() + "руб");

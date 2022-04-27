@@ -1,4 +1,4 @@
-package ru.qwonix.suai.airporter.views.ticket;
+package ru.qwonix.suai.airporter.views.ticket.type;
 
 
 import javafx.fxml.FXMLLoader;

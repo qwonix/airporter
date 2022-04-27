@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ru.qwonix.suai.airporter.views.MainController"
-            prefHeight="400.0" prefWidth="600.0">
-    <ListView fx:id="listView" prefWidth="700"/>
-</AnchorPane>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.control.Button?>
+<FlowPane stylesheets="@main.css" xmlns="http://javafx.com/javafx/16"
+          xmlns:fx="http://javafx.com/fxml/1"
+          fx:id="mainFlowPane"
+          fx:controller="ru.qwonix.suai.airporter.views.MainController">
+
+    <Button fx:id="startButton"/>
+</FlowPane>
