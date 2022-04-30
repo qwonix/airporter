@@ -4,8 +4,9 @@
 <?import javafx.scene.control.Button?>
 <FlowPane stylesheets="@main.css" xmlns="http://javafx.com/javafx/16"
           xmlns:fx="http://javafx.com/fxml/1"
+          prefHeight="720.0" prefWidth="1200.0"
           fx:id="mainFlowPane"
-          fx:controller="ru.qwonix.suai.airporter.сontroller.MainController">
+          fx:controller="ru.qwonix.suai.airporter.controller.MainController">
 
-    <Button fx:id="startButton"/>
+    <Button fx:id="startButton" text="Start" alignment="CENTER" prefWidth="50"/>
 </FlowPane>

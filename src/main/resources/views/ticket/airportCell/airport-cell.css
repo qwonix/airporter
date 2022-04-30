@@ -1,0 +1,6 @@
+.flowPaneAirport {
+    -fx-border-radius: 25 25 25 25;
+    -fx-background-radius: 25 25 25 25;
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+}

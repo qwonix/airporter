@@ -1,4 +1,4 @@
-package ru.qwonix.suai.airporter.сontroller;
+package ru.qwonix.suai.airporter.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,12 +24,13 @@ public class MainController implements Initializable {
 
     private TicketTypeDao ticketTypeDao;
     @FXML
-    public FlowPane mainFlowPane;
+    private FlowPane mainFlowPane;
     @FXML
-    public Button startButton;
+    private Button startButton;
     private final ApplicationContext applicationContext;
+
     @Value("classpath:/views/ticket/searching/ticket-search-view.fxml")
-    private Resource resource;
+    private Resource ticketSearchView;
     @Setter
     private Stage stage;
 
@@ -41,17 +42,12 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startButton.setOnMouseClicked(event -> {
-            System.out.println("++++");
-            ticketTypeDao.findAll().forEach(System.out::println);
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(resource.getURL());
-                fxmlLoader.setControllerFactory(param -> applicationContext.getBean(param));
+                FXMLLoader fxmlLoader = new FXMLLoader(ticketSearchView.getURL());
+                fxmlLoader.setControllerFactory(applicationContext::getBean);
                 Parent parent = fxmlLoader.load();
 
-                stage.setScene(new Scene(parent, 800, 600));
-
-//                ((MainController) fxmlLoader.getController()).setStage(stage);
-
+                stage.setScene(new Scene(parent));
                 stage.show();
             } catch (IOException e) {
                 e.printStackTrace();

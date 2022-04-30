@@ -3,10 +3,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.SVGPath?>
-<FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="150.0" prefWidth="600.0"
+<FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="70.0" prefWidth="700"
           styleClass="flowPaneTicketType" stylesheets="@ticket-type.css" xmlns="http://javafx.com/javafx/18"
           xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="ru.qwonix.suai.airporter.сontroller.ticket.TicketTypeCellController">
+          fx:controller="ru.qwonix.suai.airporter.controller.ticket.TicketTypeCellController">
 
     <VBox alignment="CENTER_LEFT">
         <Label fx:id="priceLabel" text="45 000"/>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<FlowPane alignment="CENTER" columnHalignment="CENTER"
+          prefHeight="20.0"
+          prefWidth="60.0"
+          styleClass="flowPaneAirport" stylesheets="@airport-cell.css" xmlns="http://javafx.com/javafx/18"
+          xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="ru.qwonix.suai.airporter.controller.ticket.AirportSelectedCellController">
+
+    <HBox alignment="CENTER_RIGHT">
+        <Label alignment="CENTER_RIGHT" fx:id="airportCity"/>
+    </HBox>
+
+    <Label alignment="CENTER_LEFT" fx:id="airportId"/>
+
+</FlowPane>
