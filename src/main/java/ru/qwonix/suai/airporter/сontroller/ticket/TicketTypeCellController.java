@@ -1,4 +1,4 @@
-package ru.qwonix.suai.airporter.views.ticket.type;
+package ru.qwonix.suai.airporter.сontroller.ticket;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -31,7 +31,7 @@ public class TicketTypeCellController {
     @FXML
     public Label arrivalTimeLabel, arrivalCityLabel, arrivalDateLabel;
 
-    public void CellSetup(TicketType ticketType) {
+    public void cellSetup(TicketType ticketType) {
         priceLabel.setText(ticketType.getPrice() + "руб");
         ticketsCountLabel.setText(ticketType.getTickets().size() + " билетов");
 
@@ -55,7 +55,6 @@ public class TicketTypeCellController {
         arrivalCityLabel.setText(ticketType.getFlight().getArrivalAirport().getCity());
         arrivalDateLabel.setText(ticketType.getFlight().getScheduledArrival()
                 .format(DateTimeFormatter.ofPattern("d MMM uuu, E")));
-
 
     }
 }

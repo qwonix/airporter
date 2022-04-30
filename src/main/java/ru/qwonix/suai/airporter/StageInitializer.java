@@ -10,16 +10,16 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import ru.qwonix.suai.airporter.JavaFxApplication.StageReadyEvent;
-import ru.qwonix.suai.airporter.views.MainController;
+import ru.qwonix.suai.airporter.сontroller.MainController;
 
 import java.io.IOException;
 
 @Component
 public class StageInitializer implements ApplicationListener<StageReadyEvent> {
-    @Value("classpath:/ru/qwonix/suai/airporter/views/main-view.fxml")
+    @Value("classpath:/views/main-view.fxml")
     private Resource resource;
 
-    private ApplicationContext applicationContext;
+    private final ApplicationContext applicationContext;
 
     public StageInitializer(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;

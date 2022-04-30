@@ -6,7 +6,7 @@
 <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="150.0" prefWidth="600.0"
           styleClass="flowPaneTicketType" stylesheets="@ticket-type.css" xmlns="http://javafx.com/javafx/18"
           xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="ru.qwonix.suai.airporter.views.ticket.type.TicketTypeCellController">
+          fx:controller="ru.qwonix.suai.airporter.сontroller.ticket.TicketTypeCellController">
 
     <VBox alignment="CENTER_LEFT">
         <Label fx:id="priceLabel" text="45 000"/>

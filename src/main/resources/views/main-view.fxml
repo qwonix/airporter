@@ -5,7 +5,7 @@
 <FlowPane stylesheets="@main.css" xmlns="http://javafx.com/javafx/16"
           xmlns:fx="http://javafx.com/fxml/1"
           fx:id="mainFlowPane"
-          fx:controller="ru.qwonix.suai.airporter.views.MainController">
+          fx:controller="ru.qwonix.suai.airporter.сontroller.MainController">
 
     <Button fx:id="startButton"/>
 </FlowPane>

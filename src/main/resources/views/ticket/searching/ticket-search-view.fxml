@@ -9,12 +9,12 @@
 <?import org.controlsfx.control.SearchableComboBox?>
 <FlowPane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          fx:controller="ru.qwonix.suai.airporter.views.ticket.searching.TicketSearchController"
+          fx:controller="ru.qwonix.suai.airporter.сontroller.ticket.searching.TicketSearchController"
           prefHeight="400.0" prefWidth="600.0">
-    <VBox>
+    <HBox>
         <SearchableComboBox fx:id="departureSearchCB"/>
         <SearchableComboBox fx:id="arrivalSearchCB"/>
-    </VBox>
+    </HBox>
 
-    <ListView fx:id="listView" prefHeight="600.0" prefWidth="1000.0"/>
+    <ListView fx:id="ticketTypeListView" prefHeight="600.0" prefWidth="1000.0"/>
 </FlowPane>

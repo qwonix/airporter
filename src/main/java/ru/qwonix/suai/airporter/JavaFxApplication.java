@@ -2,14 +2,10 @@ package ru.qwonix.suai.airporter;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ConfigurableApplicationContext;
-import ru.qwonix.suai.airporter.views.MainController;
 
 public class JavaFxApplication extends Application {
 
@@ -26,14 +22,7 @@ public class JavaFxApplication extends Application {
 
     @Override
     public void start(Stage stage) {
-//        FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
-//        Parent root = fxWeaver.loadView(MainController.class);
-//        Scene scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.show();
-
         applicationContext.publishEvent(new StageReadyEvent(stage));
-
     }
 
     @Override
@@ -42,13 +31,13 @@ public class JavaFxApplication extends Application {
         Platform.exit();
     }
 
-    static class StageReadyEvent extends ApplicationEvent {
+    protected static class StageReadyEvent extends ApplicationEvent {
         public StageReadyEvent(Stage stage) {
             super(stage);
         }
 
         public Stage getStage() {
-            return (Stage)getSource();
+            return (Stage) getSource();
         }
     }
 }
