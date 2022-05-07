@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import org.controlsfx.control.SearchableComboBox?>
-<FlowPane xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/fxml"
-          fx:controller="ru.qwonix.suai.airporter.controller.ticket.searching.TicketSearchController"
-          prefHeight="720.0" prefWidth="1200.0">
-    <VBox>
-        <HBox>
+<BorderPane prefHeight="720.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/18"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ru.qwonix.suai.airporter.controller.ticket.searching.TicketSearchController">
+
+    <center>
+        <ListView fx:id="ticketTypeListView" BorderPane.alignment="CENTER"/>
+    </center>
+    <top>
+        <HBox BorderPane.alignment="CENTER">
             <SearchableComboBox fx:id="departureSearchCB"/>
             <SearchableComboBox fx:id="arrivalSearchCB"/>
         </HBox>
+    </top>
 
-        <ListView fx:id="ticketTypeListView" prefHeight="600.0" prefWidth="1000.0"/>
-    </VBox>
-</FlowPane>
+
+</BorderPane>

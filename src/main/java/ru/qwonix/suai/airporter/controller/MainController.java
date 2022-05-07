@@ -24,7 +24,7 @@ public class MainController implements Initializable {
 
     private TicketTypeDao ticketTypeDao;
     @FXML
-    private FlowPane mainFlowPane;
+    private Parent mainPane;
     @FXML
     private Button startButton;
     private final ApplicationContext applicationContext;

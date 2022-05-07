@@ -1,15 +1,19 @@
 package ru.qwonix.suai.airporter.controller.ticket.searching;
 
+import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import lombok.extern.slf4j.Slf4j;
 import org.controlsfx.control.SearchableComboBox;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import ru.qwonix.suai.airporter.controller.ticket.AirportCellController;
 import ru.qwonix.suai.airporter.controller.ticket.AirportSelectedCellController;
@@ -24,6 +28,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+@Slf4j
 @Component
 public class TicketSearchController implements Initializable {
 
@@ -54,59 +59,7 @@ public class TicketSearchController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ticketTypeListViewInit();
-        ticketTypeSearchableComboBoxInit();
-    }
-
-    private void ticketTypeSearchableComboBoxInit() {
-        departureSearchCB.getSelectionModel()
-                .selectedItemProperty()
-                .addListener(observable -> {
-                    Airport selectedAirport = departureSearchCB.getSelectionModel().getSelectedItem();
-                    List<TicketType> allByFlight_departureAirport = ticketTypeDao.findAllByFlight_DepartureAirport(selectedAirport);
-                    ticketTypeListView.getItems().clear();
-                    ticketTypeListView.getItems().addAll(allByFlight_departureAirport);
-                    allByFlight_departureAirport.forEach(System.out::println);
-                    System.out.println(ticketTypeListView.getItems().size() + "-------------");
-                });
-
-        departureSearchCB.setButtonCell(getAirportsListCell());
-        arrivalSearchCB.setButtonCell(getAirportsListCell());
-
-        departureSearchCB.setCellFactory(this::call);
-        arrivalSearchCB.setCellFactory(this::call);
-
-        departureSearchCB.setItems(FXCollections.observableArrayList(airportDao.findAll()));
-        arrivalSearchCB.setItems(FXCollections.observableArrayList(airportDao.findAll()));
-
-
-        departureSearchCB.getSelectionModel()
-                .selectNext();
-        arrivalSearchCB.getSelectionModel()
-                .selectFirst();
-
-    }
-
-    private ListCell<Airport> getAirportsListCell() {
-        return new ListCell<>() {
-            @Override
-            protected void updateItem(Airport airport, boolean empty) {
-                super.updateItem(airport, empty);
-                if (!empty && airport != null) {
-                    try {
-                        FXMLLoader loader = new FXMLLoader(airportSelectedCellView.getURL());
-                        Parent cellLayout = loader.load();
-                        AirportSelectedCellController cellLayoutController = loader.getController();
-                        cellLayoutController.cellSetup(airport);
-
-                        setGraphic(cellLayout);
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                } else {
-                    setGraphic(null);
-                }
-            }
-        };
+        airportSearchableComboBoxInit();
     }
 
     private void ticketTypeListViewInit() {
@@ -125,16 +78,89 @@ public class TicketSearchController implements Initializable {
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
-
                 } else {
-                    setGraphic(null);
+                    setGraphic(null); // duplication element bug fix
                 }
             }
         });
-//        ticketTypeListView.setItems(FXCollections.observableArrayList(ticketTypeDao.findAll()));
+        ticketTypeListView.setItems(FXCollections.observableArrayList(ticketTypeDao.findAll()));
     }
 
-    private ListCell<Airport> call(ListView<Airport> param) {
+    /**
+     * Инициализация блока выбора аэропортов вылета и прилёта
+     */
+    private void airportSearchableComboBoxInit() {
+        departureSearchCB.getSelectionModel()
+                .selectedItemProperty()
+                .addListener(updateTickets());
+
+        arrivalSearchCB.getSelectionModel()
+                .selectedItemProperty()
+                .addListener(updateTickets());
+
+        departureSearchCB.setButtonCell(getAirportSelectedCell());
+        arrivalSearchCB.setButtonCell(getAirportSelectedCell());
+
+        departureSearchCB.setCellFactory(this::getAirportPreviewCell);
+        arrivalSearchCB.setCellFactory(this::getAirportPreviewCell);
+
+        ObservableList<Airport> observableAirports
+                = FXCollections.observableArrayList(airportDao.findAll(Sort.by(Sort.Direction.ASC, "city")));
+        departureSearchCB.setItems(observableAirports);
+        arrivalSearchCB.setItems(observableAirports);
+
+//        departureSearchCB.getSelectionModel()
+//                .selectNext();
+//        arrivalSearchCB.getSelectionModel()
+//                .selectFirst();
+
+    }
+
+    private InvalidationListener updateTickets() {
+        return o -> {
+            Airport departureAirport = departureSearchCB.getSelectionModel().getSelectedItem();
+            Airport arrivalAirport = arrivalSearchCB.getSelectionModel().getSelectedItem();
+
+            List<TicketType> ticketTypes;
+
+            if (departureAirport != null && arrivalAirport != null) {
+                ticketTypes = ticketTypeDao.findAllByFlight_DepartureAirportAndFlight_ArrivalAirport
+                        (departureAirport, arrivalAirport);
+            } else if (departureAirport != null) {
+                ticketTypes = ticketTypeDao.findAllByFlight_DepartureAirport(departureAirport);
+            } else if (arrivalAirport != null) {
+                ticketTypes = ticketTypeDao.findAllByFlight_ArrivalAirport(arrivalAirport);
+            } else return;
+
+            ticketTypeListView.getItems().clear();
+            ticketTypeListView.getItems().addAll(ticketTypes);
+        };
+    }
+
+    private ListCell<Airport> getAirportSelectedCell() {
+        return new ListCell<>() {
+            @Override
+            protected void updateItem(Airport airport, boolean empty) {
+                super.updateItem(airport, empty);
+                if (!empty && airport != null) {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(airportSelectedCellView.getURL());
+                        Parent cellLayout = loader.load();
+                        AirportSelectedCellController cellLayoutController = loader.getController();
+                        cellLayoutController.cellSetup(airport);
+
+                        setGraphic(cellLayout);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    setGraphic(null); // duplication element bug fix
+                }
+            }
+        };
+    }
+
+    private ListCell<Airport> getAirportPreviewCell(ListView<Airport> param) {
         return new ListCell<>() {
             @Override
             public void updateItem(Airport airport, boolean empty) {
@@ -151,7 +177,7 @@ public class TicketSearchController implements Initializable {
                         ex.printStackTrace();
                     }
                 } else {
-                    setGraphic(null);
+                    setGraphic(null); // duplication element bug fix
                 }
             }
         };

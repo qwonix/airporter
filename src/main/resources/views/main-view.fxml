@@ -2,11 +2,14 @@
 
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.control.Button?>
-<FlowPane stylesheets="@main.css" xmlns="http://javafx.com/javafx/16"
-          xmlns:fx="http://javafx.com/fxml/1"
-          prefHeight="720.0" prefWidth="1200.0"
-          fx:id="mainFlowPane"
-          fx:controller="ru.qwonix.suai.airporter.controller.MainController">
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane stylesheets="@main.css" xmlns="http://javafx.com/javafx/16"
+            xmlns:fx="http://javafx.com/fxml/1"
+            prefHeight="720.0" prefWidth="1200.0"
+            fx:id="mainFlowPane"
+            fx:controller="ru.qwonix.suai.airporter.controller.MainController">
+    <center>
+        <Button fx:id="startButton" text="Поиск дешёвых авиабилетов" alignment="CENTER"/>
 
-    <Button fx:id="startButton" text="Start" alignment="CENTER" prefWidth="50"/>
-</FlowPane>
+    </center>
+</BorderPane>

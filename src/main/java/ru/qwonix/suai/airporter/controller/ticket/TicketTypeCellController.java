@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import org.springframework.stereotype.Component;
 import ru.qwonix.suai.airporter.model.entity.TicketType;
 
+import java.time.Duration;
 import java.time.format.DateTimeFormatter;
 
 @Component
@@ -50,7 +51,7 @@ public class TicketTypeCellController {
         departureDateLabel.setText(ticketType.getFlight().getScheduledDeparture()
                 .format(DateTimeFormatter.ofPattern("d MMM uuu, E")));
 
-        flightDurationLabel.setText("todo");
+        flightDurationLabel.setText(Duration.between(ticketType.getFlight().getScheduledDeparture(), ticketType.getFlight().getScheduledArrival()).toMinutes() + "мин.");
 
         arrivalTimeLabel.setText(ticketType.getFlight().getScheduledArrival()
                 .format(DateTimeFormatter.ofPattern("h:mm")));
