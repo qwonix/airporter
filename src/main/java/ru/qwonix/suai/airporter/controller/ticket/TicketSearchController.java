@@ -1,4 +1,4 @@
-package ru.qwonix.suai.airporter.controller.ticket.searching;
+package ru.qwonix.suai.airporter.controller.ticket;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;

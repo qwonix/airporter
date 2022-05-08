@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ru.qwonix.suai.airporter.controller.user.AuthorizationController">
+    <center>
+        <VBox alignment="CENTER" spacing="10.0">
+            <VBox alignment="CENTER_LEFT">
+                <Label text="Имя пользователя"/>
+                <TextField prefHeight="30.0" prefWidth="200.0" promptText="Логин"/>
+            </VBox>
+            <VBox alignment="CENTER_LEFT">
+                <Label text="Пароль"/>
+                <PasswordField prefHeight="30.0" prefWidth="200.0" promptText="Пароль"/>
+            </VBox>
+            <HBox alignment="CENTER_RIGHT">
+                <Label text="Забыли пароль?"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button prefHeight="30.0" prefWidth="80.0" text="Войти"/>
+            </HBox>
+            <Separator>
+                <VBox.margin>
+                    <Insets left="10.0" right="10.0"/>
+                </VBox.margin>
+            </Separator>
+            <Button prefHeight="30.0" prefWidth="200.0" text="Зарегистрироваться"/>
+
+        </VBox>
+    </center>
+</BorderPane>

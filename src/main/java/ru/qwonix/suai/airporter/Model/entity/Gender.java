@@ -23,9 +23,4 @@ public enum Gender {
 
         throw new IllegalArgumentException("no such gender with code: " + code);
     }
-
-    public static void main(String[] args) {
-        System.out.println(Gender.fromCode('m'));
-
-    }
 }

@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 <BorderPane stylesheets="@main.css" xmlns="http://javafx.com/javafx/16"
             xmlns:fx="http://javafx.com/fxml/1"
             prefHeight="720.0" prefWidth="1200.0"
-            fx:id="mainFlowPane"
+            fx:id="mainPane"
             fx:controller="ru.qwonix.suai.airporter.controller.MainController">
     <center>
-        <Button fx:id="startButton" text="Поиск дешёвых авиабилетов" alignment="CENTER"/>
+        <VBox>
+            <Button fx:id="startButton" text="Поиск дешёвых авиабилетов" alignment="CENTER"/>
+            <Button fx:id="authButton" text="Войти" alignment="CENTER"/>
+        </VBox>
 
     </center>
 </BorderPane>

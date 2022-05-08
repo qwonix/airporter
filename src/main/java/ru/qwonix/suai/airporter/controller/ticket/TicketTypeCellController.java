@@ -3,6 +3,7 @@ package ru.qwonix.suai.airporter.controller.ticket;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import org.springframework.stereotype.Component;
 import ru.qwonix.suai.airporter.model.entity.TicketType;
 
@@ -32,15 +33,17 @@ public class TicketTypeCellController {
 
     private TicketType ticketType;
 
+    private void onSelect(MouseEvent event) {
+
+    }
+
     public void cellSetup(TicketType ticketType) {
         this.ticketType = ticketType;
 
         priceLabel.setText(ticketType.getPrice() + "руб");
         ticketsCountLabel.setText(ticketType.getTickets().size() + " билетов");
 
-        selectTicketButton.setOnMouseClicked(event -> {
-            System.out.println("select " + ticketType.getId());
-        });
+        selectTicketButton.setOnMouseClicked(this::onSelect);
 
         airlineLabel.setText(ticketType.getFlight().getAircraft().getAirline().getName());
         conditionLabel.setText(ticketType.getCondition().getName());

@@ -6,7 +6,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,14 +22,19 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
 
     private TicketTypeDao ticketTypeDao;
+    private final ApplicationContext applicationContext;
+
     @FXML
     private Parent mainPane;
     @FXML
-    private Button startButton;
-    private final ApplicationContext applicationContext;
+    private Button startButton, authButton;
 
-    @Value("classpath:/views/ticket/searching/ticket-search-view.fxml")
+    @Value("classpath:/views/ticket/ticket-search-view.fxml")
     private Resource ticketSearchView;
+
+    @Value("classpath:/views/user/authorization-view.fxml")
+    private Resource authorizationView;
+
     @Setter
     private Stage stage;
 
@@ -44,6 +48,19 @@ public class MainController implements Initializable {
         startButton.setOnMouseClicked(event -> {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(ticketSearchView.getURL());
+                fxmlLoader.setControllerFactory(applicationContext::getBean);
+                Parent parent = fxmlLoader.load();
+
+                stage.setScene(new Scene(parent));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        authButton.setOnMouseClicked(event -> {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(authorizationView.getURL());
                 fxmlLoader.setControllerFactory(applicationContext::getBean);
                 Parent parent = fxmlLoader.load();
 
