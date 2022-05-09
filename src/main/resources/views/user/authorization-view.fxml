@@ -16,7 +16,8 @@
                 <PasswordField prefHeight="30.0" prefWidth="200.0" promptText="Пароль"/>
             </VBox>
             <HBox alignment="CENTER_RIGHT">
-                <Label text="Забыли пароль?"/>
+                <Button onMouseClicked="#onForgetPasswordButton_Clicked" prefHeight="30.0" prefWidth="80.0"
+                        text="Забыли пароль?"/>
                 <Region HBox.hgrow="ALWAYS"/>
                 <Button prefHeight="30.0" prefWidth="80.0" text="Войти"/>
             </HBox>
@@ -25,7 +26,8 @@
                     <Insets left="10.0" right="10.0"/>
                 </VBox.margin>
             </Separator>
-            <Button prefHeight="30.0" prefWidth="200.0" text="Зарегистрироваться"/>
+            <Button onMouseClicked="#onRegistrationButton_Clicked" prefHeight="30.0" prefWidth="200.0"
+                    text="Зарегистрироваться"/>
 
         </VBox>
     </center>

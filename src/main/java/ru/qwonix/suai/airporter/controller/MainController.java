@@ -19,7 +19,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 @Component
-public class MainController implements Initializable {
+public class MainController implements Controller, Initializable {
 
     private TicketTypeDao ticketTypeDao;
     private final ApplicationContext applicationContext;
@@ -46,29 +46,12 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startButton.setOnMouseClicked(event -> {
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(ticketSearchView.getURL());
-                fxmlLoader.setControllerFactory(applicationContext::getBean);
-                Parent parent = fxmlLoader.load();
+            ControllerUtils.changeScene(ticketSearchView, applicationContext, this.stage);
 
-                stage.setScene(new Scene(parent));
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         });
 
         authButton.setOnMouseClicked(event -> {
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(authorizationView.getURL());
-                fxmlLoader.setControllerFactory(applicationContext::getBean);
-                Parent parent = fxmlLoader.load();
-
-                stage.setScene(new Scene(parent));
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            ControllerUtils.changeScene(authorizationView, applicationContext, this.stage);
         });
     }
 }

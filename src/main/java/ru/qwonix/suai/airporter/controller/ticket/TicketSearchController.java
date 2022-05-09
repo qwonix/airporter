@@ -9,15 +9,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.stage.Stage;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.controlsfx.control.SearchableComboBox;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
-import ru.qwonix.suai.airporter.controller.ticket.AirportCellController;
-import ru.qwonix.suai.airporter.controller.ticket.AirportSelectedCellController;
-import ru.qwonix.suai.airporter.controller.ticket.TicketTypeCellController;
+import ru.qwonix.suai.airporter.controller.Controller;
 import ru.qwonix.suai.airporter.model.dao.AirportDao;
 import ru.qwonix.suai.airporter.model.dao.TicketTypeDao;
 import ru.qwonix.suai.airporter.model.entity.Airport;
@@ -30,7 +30,7 @@ import java.util.ResourceBundle;
 
 @Slf4j
 @Component
-public class TicketSearchController implements Initializable {
+public class TicketSearchController implements Controller, Initializable {
 
     private final TicketTypeDao ticketTypeDao;
     private final AirportDao airportDao;
@@ -50,6 +50,8 @@ public class TicketSearchController implements Initializable {
     @Value("classpath:/views/ticket/airportCell/airport-selected-cell-layout.fxml")
     private Resource airportSelectedCellView;
 
+    @Setter
+    private Stage stage;
 
     public TicketSearchController(TicketTypeDao ticketTypeDao, AirportDao airportDao) {
         this.ticketTypeDao = ticketTypeDao;
