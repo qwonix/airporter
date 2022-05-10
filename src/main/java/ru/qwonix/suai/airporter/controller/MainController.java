@@ -23,12 +23,6 @@ public class MainController implements Initializable {
     @FXML
     private Button startButton, authButton;
 
-    @Value("classpath:/views/ticket/ticket-search-view.fxml")
-    private Resource ticketSearchView;
-
-    @Value("classpath:/views/user/authorization-view.fxml")
-    private Resource authorizationView;
-
     private final ControllerUtils controllerUtils;
 
     public MainController(TicketTypeDao ticketTypeDao, ControllerUtils controllerUtils) {
@@ -39,12 +33,12 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startButton.setOnMouseClicked(event -> {
-            controllerUtils.changeScene(ticketSearchView);
+            controllerUtils.changeScene(View.TICKET_SEARCH);
 
         });
 
         authButton.setOnMouseClicked(event -> {
-            controllerUtils.changeScene(authorizationView);
+            controllerUtils.changeScene(View.AUTHORIZATION);
         });
     }
 }

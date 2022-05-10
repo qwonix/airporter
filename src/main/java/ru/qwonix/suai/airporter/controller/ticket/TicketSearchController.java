@@ -49,8 +49,6 @@ public class TicketSearchController implements Initializable {
     @Value("classpath:/views/ticket/airportCell/airport-selected-cell-layout.fxml")
     private Resource airportSelectedCellView;
 
-    @Setter
-    private Stage stage;
 
     public TicketSearchController(TicketTypeDao ticketTypeDao, AirportDao airportDao) {
         this.ticketTypeDao = ticketTypeDao;

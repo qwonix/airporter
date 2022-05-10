@@ -13,6 +13,7 @@ import ru.qwonix.suai.airporter.JavaFxApplication.StageReadyEvent;
 
 import ru.qwonix.suai.airporter.controller.ControllerUtils;
 
+
 import java.io.IOException;
 
 @Component

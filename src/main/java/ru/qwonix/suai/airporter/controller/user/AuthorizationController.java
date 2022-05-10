@@ -6,14 +6,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import ru.qwonix.suai.airporter.controller.ControllerUtils;
+import ru.qwonix.suai.airporter.controller.View;
 
 @Component
 public class AuthorizationController {
 
     private final ControllerUtils controllerUtils;
-
-    @Value("classpath:/views/user/registration-view.fxml")
-    private Resource registrationView;
 
 
     public AuthorizationController(ControllerUtils controllerUtils) {
@@ -26,6 +24,6 @@ public class AuthorizationController {
 
     @FXML
     public void onRegistrationButton_Clicked(MouseEvent mouseEvent) {
-        controllerUtils.changeScene(registrationView);
+        controllerUtils.changeScene(View.REGISTRATION);
     }
 }
