@@ -10,8 +10,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import ru.qwonix.suai.airporter.JavaFxApplication.StageReadyEvent;
-import ru.qwonix.suai.airporter.controller.Controller;
-import ru.qwonix.suai.airporter.controller.MainController;
+
+import ru.qwonix.suai.airporter.controller.ControllerUtils;
 
 import java.io.IOException;
 
@@ -21,8 +21,11 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
     @Value("classpath:/views/main-view.fxml")
     private Resource mainView;
 
-    public StageInitializer(ApplicationContext applicationContext) {
+    private final ControllerUtils controllerUtils;
+
+    public StageInitializer(ApplicationContext applicationContext, ControllerUtils controllerUtils) {
         this.applicationContext = applicationContext;
+        this.controllerUtils = controllerUtils;
     }
 
     @Override
@@ -33,9 +36,9 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
             Parent parent = fxmlLoader.load();
 
             Stage stage = event.getStage();
-            stage.setScene(new Scene(parent));
+            controllerUtils.setStage(stage);
 
-            ((Controller) fxmlLoader.getController()).setStage(stage);
+            stage.setScene(new Scene(parent));
 
             stage.show();
 

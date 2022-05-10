@@ -1,28 +1,22 @@
 package ru.qwonix.suai.airporter.controller;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import ru.qwonix.suai.airporter.model.dao.TicketTypeDao;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 @Component
-public class MainController implements Controller, Initializable {
+public class MainController implements Initializable {
 
     private TicketTypeDao ticketTypeDao;
-    private final ApplicationContext applicationContext;
 
     @FXML
     private Parent mainPane;
@@ -35,23 +29,22 @@ public class MainController implements Controller, Initializable {
     @Value("classpath:/views/user/authorization-view.fxml")
     private Resource authorizationView;
 
-    @Setter
-    private Stage stage;
+    private final ControllerUtils controllerUtils;
 
-    public MainController(TicketTypeDao ticketTypeDao, ApplicationContext applicationContext) {
+    public MainController(TicketTypeDao ticketTypeDao, ControllerUtils controllerUtils) {
         this.ticketTypeDao = ticketTypeDao;
-        this.applicationContext = applicationContext;
+        this.controllerUtils = controllerUtils;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startButton.setOnMouseClicked(event -> {
-            ControllerUtils.changeScene(ticketSearchView, applicationContext, this.stage);
+            controllerUtils.changeScene(ticketSearchView);
 
         });
 
         authButton.setOnMouseClicked(event -> {
-            ControllerUtils.changeScene(authorizationView, applicationContext, this.stage);
+            controllerUtils.changeScene(authorizationView);
         });
     }
 }

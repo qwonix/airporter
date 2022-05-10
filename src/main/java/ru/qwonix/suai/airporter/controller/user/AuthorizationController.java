@@ -2,28 +2,22 @@ package ru.qwonix.suai.airporter.controller.user;
 
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
-import ru.qwonix.suai.airporter.controller.Controller;
 import ru.qwonix.suai.airporter.controller.ControllerUtils;
 
 @Component
-public class AuthorizationController implements Controller {
+public class AuthorizationController {
 
-    private final ApplicationContext applicationContext;
+    private final ControllerUtils controllerUtils;
 
     @Value("classpath:/views/user/registration-view.fxml")
     private Resource registrationView;
 
-    @Setter
-    private Stage stage;
 
-    public AuthorizationController(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
+    public AuthorizationController(ControllerUtils controllerUtils) {
+        this.controllerUtils = controllerUtils;
     }
 
     @FXML
@@ -32,6 +26,6 @@ public class AuthorizationController implements Controller {
 
     @FXML
     public void onRegistrationButton_Clicked(MouseEvent mouseEvent) {
-        ControllerUtils.changeScene(registrationView, applicationContext, this.stage);
+        controllerUtils.changeScene(registrationView);
     }
 }

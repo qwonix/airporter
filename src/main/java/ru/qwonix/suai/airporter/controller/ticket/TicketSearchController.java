@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
-import ru.qwonix.suai.airporter.controller.Controller;
 import ru.qwonix.suai.airporter.model.dao.AirportDao;
 import ru.qwonix.suai.airporter.model.dao.TicketTypeDao;
 import ru.qwonix.suai.airporter.model.entity.Airport;
@@ -30,7 +29,7 @@ import java.util.ResourceBundle;
 
 @Slf4j
 @Component
-public class TicketSearchController implements Controller, Initializable {
+public class TicketSearchController implements Initializable {
 
     private final TicketTypeDao ticketTypeDao;
     private final AirportDao airportDao;
