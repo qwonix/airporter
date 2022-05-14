@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 @Component
 public class ControllerUtils {
@@ -35,6 +38,23 @@ public class ControllerUtils {
 
     public ControllerUtils(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
+    }
+
+    public static String sha1(String inputString) {
+        MessageDigest digest = null;
+        try {
+            digest = MessageDigest.getInstance("sha-1");
+        } catch (NoSuchAlgorithmException ignore) {
+        }
+        final byte[] hash = digest.digest(inputString.getBytes(StandardCharsets.UTF_8));
+        final StringBuilder hexString = new StringBuilder();
+        for (byte b : hash) {
+            final String hex = Integer.toHexString(0xff & b);
+            if (hex.length() == 1)
+                hexString.append('0');
+            hexString.append(hex);
+        }
+        return hexString.toString();
     }
 
     public void changeScene(View view) {

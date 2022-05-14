@@ -1,49 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.qwonix.suai.airporter.controller.user.RegistrationController">
+<BorderPane stylesheets="@login.css" xmlns="http://javafx.com/javafx/16"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ru.qwonix.suai.airporter.controller.user.RegistrationController">
+    <top>
+        <Label text="Регистрация"/>
+        <Button onMouseClicked="#onAuthorizationButton_Clicked" prefHeight="30.0" prefWidth="200.0"
+                text="Войти"/>
+    </top>
     <center>
         <VBox alignment="CENTER" spacing="10.0">
             <VBox alignment="CENTER_LEFT">
-                <Label text="Имя пользователя" />
-                <TextField prefHeight="30.0" prefWidth="200.0" promptText="Логин" />
+                <Label text="Имя пользователя"/>
+                <TextField fx:id="usernameField" onKeyTyped="#onUsernameChanged" prefHeight="30.0" prefWidth="200.0"
+                           promptText="Логин"/>
+                <Label fx:id="usernameCaption" styleClass="fieldValidation" visible="false"/>
             </VBox>
             <VBox alignment="CENTER_LEFT">
-                <Label text="Пароль" />
-                <PasswordField prefHeight="30.0" prefWidth="200.0" promptText="Пароль" />
+                <Label onMouseClicked="#onPasswordLabelClicked" text="Пароль"/>
+                <PasswordField fx:id="passwordField" onKeyTyped="#onPasswordChanged" prefHeight="30.0"
+                               prefWidth="200.0" promptText="Пароль"/>
+                <Label fx:id="passwordCaption" styleClass="fieldValidation" visible="false"/>
             </VBox>
             <VBox alignment="CENTER_LEFT">
-                <Label text="Повторите пароль" />
-                <PasswordField prefHeight="30.0" prefWidth="200.0" promptText="Пароль" />
+                <Label text="Повторите пароль"/>
+                <PasswordField fx:id="passwordRepeatField" onKeyTyped="#onPasswordRepeatChanged" prefHeight="30.0"
+                               prefWidth="200.0"
+                               promptText="Пароль"/>
+                <Label fx:id="passwordRepeatCaption" styleClass="fieldValidation" visible="false"/>
             </VBox>
             <VBox alignment="CENTER_LEFT">
-                <Label text="Телефон" />
-                <TextField prefHeight="30.0" prefWidth="200.0" promptText="Телефон" />
+                <Label text="Телефон"/>
+                <TextField fx:id="phoneField" onKeyTyped="#onPhoneChanged" prefHeight="30.0" prefWidth="200.0"
+                           promptText="Например: +7 (999) 123-45-67"/>
+                <Label fx:id="phoneCaption" styleClass="fieldValidation" visible="false"/>
             </VBox>
             <VBox alignment="CENTER_LEFT">
-                <Label text="Email" />
-                <TextField prefHeight="30.0" prefWidth="200.0" promptText="Логин" />
+                <Label text="Email"/>
+                <TextField fx:id="emailField" onKeyTyped="#onEmailChanged" prefHeight="30.0" prefWidth="200.0"
+                           promptText="Например: example@mail.com"/>
+                <Label fx:id="emailCaption" styleClass="fieldValidation" visible="false"/>
             </VBox>
             <VBox alignment="CENTER_LEFT">
-                <Label text="Номер паспорта" />
-                <TextField prefHeight="30.0" prefWidth="200.0" promptText="Логин" />
+                <Label text="Номер паспорта"/>
+                <TextField fx:id="passportField" onKeyTyped="#onPassportChanged" prefHeight="30.0" prefWidth="200.0"
+                           promptText="Например: 123456 7890"/>
+                <Label fx:id="passportCaption" styleClass="fieldValidation" visible="false"/>
             </VBox>
             <VBox alignment="CENTER_LEFT">
-                <Label text="ФИО" />
-                <TextField prefHeight="30.0" prefWidth="60.0" promptText="Имя" />
-                <TextField prefHeight="30.0" prefWidth="70.0" promptText="Фамилия" />
-                <TextField prefHeight="30.0" prefWidth="70.0" promptText="Отчество" />
+                <Label text="ФИО"/>
+                <HBox>
+                    <TextField fx:id="firstnameField" onKeyTyped="#onFirstNameChanged" prefHeight="30.0"
+                               prefWidth="60.0"
+                               promptText="Имя"/>
+                    <TextField fx:id="lastnameField" onKeyTyped="#onLastNameChanged" prefHeight="30.0" prefWidth="70.0"
+                               promptText="Фамилия"/>
+                    <TextField fx:id="patronymicField" onKeyTyped="#onPatronymicChanged" prefHeight="30.0"
+                               prefWidth="70.0"
+                               promptText="Отчество"/>
+                </HBox>
+                <Label fx:id="nameCaption" styleClass="fieldValidation" visible="false"/>
             </VBox>
-            <DatePicker promptText="День рождения" />
+            <VBox>
+                <DatePicker fx:id="birthdayDatePicker" onAction="#onBirthdayChanged" promptText="День рождения"
+                            prefHeight="30.0" prefWidth="70.0"/>
+                <Label fx:id="birthdayCaption" styleClass="fieldValidation" visible="false"/>
+            </VBox>
             <HBox>
                 <fx:define>
                     <ToggleGroup fx:id="genderRB"/>
                 </fx:define>
-                <RadioButton onAction="#onSelectedGenderChange" text="Мужчина" toggleGroup="$genderRB" userData="M" selected="true"/>
+                <RadioButton onAction="#onSelectedGenderChange" text="Мужчина" toggleGroup="$genderRB" userData="M"
+                             selected="true"/>
                 <RadioButton onAction="#onSelectedGenderChange" text="Женщина" toggleGroup="$genderRB" userData="F"/>
             </HBox>
+            <Separator>
+                <VBox.margin>
+                    <Insets left="10.0" right="10.0"/>
+                </VBox.margin>
+            </Separator>
+            <Button onMouseClicked="#onRegistrationButton_Clicked" prefHeight="30.0" prefWidth="200.0"
+                    text="Зарегистрироваться"/>
+
         </VBox>
     </center>
 </BorderPane>
