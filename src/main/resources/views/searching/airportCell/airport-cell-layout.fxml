@@ -6,7 +6,7 @@
 <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="20.0"
           prefWidth="60.0" styleClass="flowPaneAirport" stylesheets="@airport-cell.css"
           xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="ru.qwonix.suai.airporter.controller.ticket.AirportCellController">
+          fx:controller="ru.qwonix.suai.airporter.controller.searching.AirportCellController">
 
     <HBox alignment="CENTER_RIGHT">
         <Label fx:id="airportCity" alignment="CENTER_RIGHT"/>

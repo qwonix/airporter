@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@ticket.css" xmlns="http://javafx.com/javafx/16"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ru.qwonix.suai.airporter.controller.ticket.TicketDetailsController">
+
+    <left>
+        <VBox>
+            <Label fx:id="priceLabel" styleClass="priceLabel" text="45 000"/>
+            <Button fx:id="buyButton" styleClass="buyButton" text="Купить билет"/>
+            <VBox styleClass="roundedBox">
+                <Label text="Тариф"/>
+                <Label fx:id="conditionLabel" text="Эконом"/>
+                <Label fx:id="conditionDescription" text="Эконом это дешево"/>
+            </VBox>
+            <VBox styleClass="roundedBox">
+                <Label text="Самолёт"/>
+                <Label fx:id="aircraftLabel" text="GUAP"/>
+                <Label fx:id="aircraftProductionDate" text="1945"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox>
+            <VBox>
+                <Label fx:id="ticketTitleLabel" styleClass="ticketTitleLabel" text="Санкт-Петербург – Россия"/>
+                <Label fx:id="flightDurationLabel" styleClass="descriptionLabel" text="5ч 35м в пути"/>
+            </VBox>
+
+
+            <VBox>
+                <HBox>
+                    <ImageView/>
+                    <Label fx:id="airlineName" styleClass="titleLabel" text="ГУАП"/>
+                </HBox>
+                <HBox>
+                    <ImageView/>
+                    <VBox>
+                        <HBox>
+                            <VBox>
+                                <Label fx:id="departureTimeLabel" styleClass="titleLabel" text="9:20"/>
+                                <Label fx:id="departureDateLabel" styleClass="descriptionLabel" text="1 сен 2022, ср"/>
+                            </VBox>
+                            <VBox>
+                                <Label fx:id="departureCityLabel" styleClass="titleLabel" text="Санкт-Петербург"/>
+                                <Label fx:id="departureAirportLabel" styleClass="descriptionLabel" text="Пулково, LED"/>
+                            </VBox>
+                        </HBox>
+                        <HBox>
+                            <VBox>
+                                <Label fx:id="arrivalTimeLabel" styleClass="titleLabel" text="14:55"/>
+                                <Label fx:id="arrivalDateLabel" styleClass="descriptionLabel" text="1 сен 2022, ср"/>
+                            </VBox>
+                            <VBox>
+                                <Label fx:id="arrivalCityLabel" styleClass="titleLabel" text="Санкт-Петербург"/>
+                                <Label fx:id="arrivalAirportLabel" styleClass="descriptionLabel" text="Пулково, LED"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </VBox>
+    </center>
+    <right>
+        <Button fx:id="backButton" text="Назад"/>
+    </right>
+
+</BorderPane>

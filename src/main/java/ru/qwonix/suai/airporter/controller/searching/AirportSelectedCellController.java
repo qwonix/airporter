@@ -1,10 +1,13 @@
-package ru.qwonix.suai.airporter.controller.ticket;
+package ru.qwonix.suai.airporter.controller.searching;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import org.springframework.stereotype.Component;
 import ru.qwonix.suai.airporter.model.entity.Airport;
 
+/**
+ * Контроллер текущей выбранной ячейки SearchableComboBox
+ */
 @Component
 public class AirportSelectedCellController {
     @FXML

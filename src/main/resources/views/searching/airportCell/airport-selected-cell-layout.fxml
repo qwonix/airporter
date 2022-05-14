@@ -8,7 +8,7 @@
           prefWidth="60.0"
           styleClass="flowPaneAirport" stylesheets="@airport-cell.css" xmlns="http://javafx.com/javafx/18"
           xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="ru.qwonix.suai.airporter.controller.ticket.AirportSelectedCellController">
+          fx:controller="ru.qwonix.suai.airporter.controller.searching.AirportSelectedCellController">
 
     <HBox alignment="CENTER_RIGHT">
         <Label alignment="CENTER_RIGHT" fx:id="airportCity"/>

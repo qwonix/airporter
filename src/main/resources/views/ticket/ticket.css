@@ -1,0 +1,32 @@
+.priceLabel {
+    -fx-font-size: 28px;
+}
+
+.buyButton {
+    -fx-background-color: #fc6e32;
+    -fx-font-size: 28px;
+    -fx-text-fill: white;
+    -fx-border-radius: 22;
+}
+
+.roundedBox {
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+}
+
+.ticketTitleLabel {
+    -fx-font-size: 19px;
+
+}
+
+.titleLabel {
+    -fx-text-fill: black;
+    -fx-font-size: 17px;
+}
+
+.descriptionLabel {
+    -fx-text-fill: grey;
+    -fx-font-size: 13px;
+}

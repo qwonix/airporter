@@ -1,4 +1,4 @@
-package ru.qwonix.suai.airporter.controller.ticket;
+package ru.qwonix.suai.airporter.controller.searching;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
@@ -9,11 +9,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.stage.Stage;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.controlsfx.control.SearchableComboBox;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
@@ -31,6 +30,7 @@ import java.util.ResourceBundle;
 @Component
 public class TicketSearchController implements Initializable {
 
+    private final ApplicationContext applicationContext;
     private final TicketTypeDao ticketTypeDao;
     private final AirportDao airportDao;
 
@@ -40,17 +40,18 @@ public class TicketSearchController implements Initializable {
     private SearchableComboBox<Airport> departureSearchCB, arrivalSearchCB;
 
 
-    @Value("classpath:/views/ticket/ticketTypeCell/ticket-type-cell-layout.fxml")
+    @Value("classpath:/views/searching/ticketTypeCell/ticket-type-cell-layout.fxml")
     private Resource ticketTypeCellView;
 
-    @Value("classpath:/views/ticket/airportCell/airport-cell-layout.fxml")
+    @Value("classpath:/views/searching/airportCell/airport-cell-layout.fxml")
     private Resource airportCellView;
 
-    @Value("classpath:/views/ticket/airportCell/airport-selected-cell-layout.fxml")
+    @Value("classpath:/views/searching/airportCell/airport-selected-cell-layout.fxml")
     private Resource airportSelectedCellView;
 
 
-    public TicketSearchController(TicketTypeDao ticketTypeDao, AirportDao airportDao) {
+    public TicketSearchController(ApplicationContext applicationContext, TicketTypeDao ticketTypeDao, AirportDao airportDao) {
+        this.applicationContext = applicationContext;
         this.ticketTypeDao = ticketTypeDao;
         this.airportDao = airportDao;
     }
@@ -69,6 +70,7 @@ public class TicketSearchController implements Initializable {
                 if (!empty && ticketType != null) {
                     try {
                         FXMLLoader loader = new FXMLLoader(ticketTypeCellView.getURL());
+                        loader.setControllerFactory(applicationContext::getBean);
                         Parent cellLayout = loader.load();
                         TicketTypeCellController cellLayoutController = loader.getController();
                         cellLayoutController.cellSetup(ticketType);

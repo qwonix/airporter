@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -24,7 +25,7 @@ public class ControllerUtils {
     @Value("classpath:/views/main-view.fxml")
     private Resource mainView;
 
-    @Value("classpath:/views/ticket/ticket-search-view.fxml")
+    @Value("classpath:/views/searching/ticket-search-view.fxml")
     private Resource ticketSearchView;
 
     @Value("classpath:/views/user/authorization-view.fxml")
@@ -34,19 +35,20 @@ public class ControllerUtils {
     private Resource registrationView;
 
     @Setter
+    @Getter
     private Stage stage;
 
     public ControllerUtils(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 
-    public static String sha1(String inputString) {
+    public static String encodePassword(String password) {
         MessageDigest digest = null;
         try {
             digest = MessageDigest.getInstance("sha-1");
         } catch (NoSuchAlgorithmException ignore) {
         }
-        final byte[] hash = digest.digest(inputString.getBytes(StandardCharsets.UTF_8));
+        final byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
         final StringBuilder hexString = new StringBuilder();
         for (byte b : hash) {
             final String hex = Integer.toHexString(0xff & b);
@@ -83,7 +85,6 @@ public class ControllerUtils {
             Parent parent = fxmlLoader.load();
 
             stage.setScene(new Scene(parent));
-
         } catch (IOException e) {
             e.printStackTrace();
         }
