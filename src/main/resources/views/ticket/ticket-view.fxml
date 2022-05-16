@@ -4,10 +4,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import org.controlsfx.control.SearchableComboBox?>
-<BorderPane prefHeight="400.0" prefWidth="600.0"
-            stylesheets="@ticket.css" xmlns="http://javafx.com/javafx/16"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="ru.qwonix.suai.airporter.controller.ticket.TicketDetailsController">
+<BorderPane
+        stylesheets="@ticket.css" xmlns="http://javafx.com/javafx/16"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="ru.qwonix.suai.airporter.controller.ticket.TicketController">
 
     <left>
         <VBox>

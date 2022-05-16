@@ -6,13 +6,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import ru.qwonix.suai.airporter.controller.ControllerUtils;
-import ru.qwonix.suai.airporter.controller.ticket.TicketDetailsController;
+import ru.qwonix.suai.airporter.controller.ticket.TicketController;
 import ru.qwonix.suai.airporter.model.entity.TicketType;
 
 import java.io.IOException;
@@ -43,7 +42,7 @@ public class TicketTypeCellController {
     @FXML
     private Label arrivalTimeLabel, arrivalCityLabel, arrivalDateLabel;
 
-    @Value("classpath:views/ticket/ticket.fxml")
+    @Value("classpath:views/ticket/ticket-view.fxml")
     private Resource ticketView;
 
     public TicketTypeCellController(ControllerUtils controllerUtils, ApplicationContext applicationContext) {
@@ -56,7 +55,7 @@ public class TicketTypeCellController {
             FXMLLoader fxmlLoader = new FXMLLoader(ticketView.getURL());
             fxmlLoader.setControllerFactory(this.applicationContext::getBean);
             Parent load = fxmlLoader.load();
-            TicketDetailsController cellLayoutController = fxmlLoader.getController();
+            TicketController cellLayoutController = fxmlLoader.getController();
             cellLayoutController.setup(ticketType);
 
             controllerUtils.getMainStage().setScene(new Scene(load));
@@ -67,6 +66,7 @@ public class TicketTypeCellController {
 
     public void cellSetup(TicketType ticketType) {
         priceLabel.setText(ticketType.getPrice() + "руб");
+        // todo: make tickets size where passenger != null
         ticketsCountLabel.setText(ticketType.getTickets().size() + " билетов");
 
         airlineLabel.setText(ticketType.getFlight().getAircraft().getAirline().getName());

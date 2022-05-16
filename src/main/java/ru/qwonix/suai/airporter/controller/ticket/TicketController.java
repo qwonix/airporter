@@ -1,10 +1,16 @@
 package ru.qwonix.suai.airporter.controller.ticket;
 
 import javafx.collections.FXCollections;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import lombok.extern.slf4j.Slf4j;
 import org.controlsfx.control.SearchableComboBox;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import ru.qwonix.suai.airporter.controller.ControllerUtils;
 import ru.qwonix.suai.airporter.controller.View;
@@ -13,16 +19,15 @@ import ru.qwonix.suai.airporter.model.entity.Passenger;
 import ru.qwonix.suai.airporter.model.entity.Ticket;
 import ru.qwonix.suai.airporter.model.entity.TicketType;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-public class TicketDetailsController {
+public class TicketController {
 
     private final ControllerUtils controllerUtils;
     private final TicketDao ticketDao;
@@ -40,7 +45,10 @@ public class TicketDetailsController {
     public Button buyButton, backButton;
     public SearchableComboBox<Ticket> seatComboBox;
 
-    public TicketDetailsController(ControllerUtils controllerUtils, TicketDao ticketDao) {
+    @Value("classpath:/views/ticket/seat/seat-cell-layout.fxml")
+    private Resource seatCellView;
+
+    public TicketController(ControllerUtils controllerUtils, TicketDao ticketDao) {
         this.controllerUtils = controllerUtils;
         this.ticketDao = ticketDao;
     }
@@ -64,7 +72,6 @@ public class TicketDetailsController {
 
         airlineNameLabel.setText(ticketType.getFlight().getAircraft().getAirline().getName());
 
-
         departureTimeLabel.setText(ticketType.getFlight().getScheduledDeparture()
                 .format(DateTimeFormatter.ofPattern("h:mm")));
         departureDateLabel.setText(ticketType.getFlight().getScheduledDeparture()
@@ -80,6 +87,7 @@ public class TicketDetailsController {
         arrivalCityLabel.setText(ticketType.getFlight().getArrivalAirport().getCity());
         arrivalAirportLabel.setText(ticketType.getFlight().getArrivalAirport().getName());
 
+        seatComboBox.setCellFactory(this::getSeatPreviewCell);
         seatComboBox.setItems(FXCollections.observableArrayList(ticketDao.findAllByTicketType(ticketType)));
         seatComboBox.getSelectionModel().selectFirst();
 
@@ -97,10 +105,35 @@ public class TicketDetailsController {
             } else {
                 controllerUtils.openAuthorization();
             }
-
         });
         backButton.setOnMouseClicked(event -> {
             controllerUtils.changeScene(View.TICKET_SEARCH);
         });
+    }
+
+    private ListCell<Ticket> getSeatPreviewCell(ListView<Ticket> param) {
+        return new ListCell<>() {
+            @Override
+            public void updateItem(Ticket ticket, boolean empty) {
+                super.updateItem(ticket, empty);
+                if (!empty && ticket != null) {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(seatCellView.getURL());
+                        Parent cellLayout = loader.load();
+                        SeatCellController cellLayoutController = loader.getController();
+                        cellLayoutController.cellSetup(ticket);
+
+                        if ((ticket.getPassenger() != null)) {
+                            setDisable(true);
+                        }
+                        setGraphic(cellLayout);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    setGraphic(null); // duplication element bug fix
+                }
+            }
+        };
     }
 }

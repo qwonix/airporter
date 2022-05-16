@@ -24,12 +24,8 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return "Ticket{" +
-                "id=" + id +
-                ", seatId='" + seatId + '\'' +
-                ", passenger=" + passenger +
-//                ", ticketType=" + ticketType +
-                '}';
+        // todo: убрать такой кривой способ и сделать нормальное переопеределение ячеки searchable combobox
+        return seatId;
     }
 
     @ManyToOne

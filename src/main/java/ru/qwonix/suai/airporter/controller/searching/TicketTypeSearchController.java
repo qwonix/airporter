@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-public class TicketSearchController implements Initializable {
+public class TicketTypeSearchController implements Initializable {
 
     private final ApplicationContext applicationContext;
     private final TicketTypeDao ticketTypeDao;
@@ -51,7 +51,7 @@ public class TicketSearchController implements Initializable {
     private Resource airportSelectedCellView;
 
 
-    public TicketSearchController(ApplicationContext applicationContext, TicketTypeDao ticketTypeDao, AirportDao airportDao) {
+    public TicketTypeSearchController(ApplicationContext applicationContext, TicketTypeDao ticketTypeDao, AirportDao airportDao) {
         this.applicationContext = applicationContext;
         this.ticketTypeDao = ticketTypeDao;
         this.airportDao = airportDao;
@@ -85,9 +85,12 @@ public class TicketSearchController implements Initializable {
                 }
             }
         });
-        List<TicketType> all = ticketTypeDao.findAll();
 
-        ticketTypeListView.setItems(FXCollections.observableArrayList(all));
+        // todo: replace filter with sql query
+        List<TicketType>ticketTypes = ticketTypeDao.findAll().stream()
+                .filter(ticketType -> ticketType.getTickets().size() != 0)
+                .collect(Collectors.toList());
+        ticketTypeListView.setItems(FXCollections.observableArrayList(ticketTypes));
     }
 
     /**
@@ -132,6 +135,7 @@ public class TicketSearchController implements Initializable {
                 ticketTypes = ticketTypeDao.findAllByFlight_ArrivalAirport(arrivalAirport);
             } else return;
 
+            // todo: replace filter with sql query
             ticketTypes = ticketTypes.stream()
                     .filter(ticketType -> ticketType.getTickets().size() != 0)
                     .collect(Collectors.toList());

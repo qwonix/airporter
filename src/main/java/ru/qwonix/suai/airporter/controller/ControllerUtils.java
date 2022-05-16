@@ -70,6 +70,7 @@ public class ControllerUtils {
         changeScene(mainStage, view);
     }
 
+
     public void changeScene(Stage stage, View view) {
         try {
             URL url;
