@@ -8,6 +8,4 @@ import java.util.List;
 
 public interface TicketDao extends JpaRepository<Ticket, Integer> {
     List<Ticket> findAllByTicketType(TicketType ticketType);
-
-    List<Ticket> findAllByTicketTypeAndPassengerIsNull(TicketType ticketType);
 }

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import ru.qwonix.suai.airporter.model.entity.Airport;
 
 /**
- * Контроллер ячейки SearchableComboBox
+ * Контроллер ячейки Аэропорта SearchableComboBox
  */
 @Component
 public class AirportCellController {

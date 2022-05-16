@@ -1,6 +1,7 @@
 package ru.qwonix.suai.airporter.controller.ticket;
 
 import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -32,18 +33,26 @@ public class TicketController {
     private final ControllerUtils controllerUtils;
     private final TicketDao ticketDao;
 
-    public Label priceLabel;
-    public Label conditionDescriptionLabel, conditionLabel;
-    public Label aircraftLabel, aircraftProductionDate;
-    public Label ticketTitleLabel, flightDurationLabel;
+    @FXML
+    private Label priceLabel;
+    @FXML
+    private Label conditionDescriptionLabel, conditionLabel;
+    @FXML
+    private Label aircraftLabel, aircraftProductionDate;
+    @FXML
+    private Label ticketTitleLabel, flightDurationLabel;
 
-    public Label airlineNameLabel;
+    @FXML
+    private Label airlineNameLabel;
 
-    public Label departureTimeLabel, departureDateLabel, departureCityLabel, departureAirportLabel;
-    public Label arrivalTimeLabel, arrivalDateLabel, arrivalCityLabel, arrivalAirportLabel;
-
-    public Button buyButton, backButton;
-    public SearchableComboBox<Ticket> seatComboBox;
+    @FXML
+    private Label departureTimeLabel, departureDateLabel, departureCityLabel, departureAirportLabel;
+    @FXML
+    private Label arrivalTimeLabel, arrivalDateLabel, arrivalCityLabel, arrivalAirportLabel;
+    @FXML
+    private Button buyButton, backButton;
+    @FXML
+    private SearchableComboBox<Ticket> seatComboBox;
 
     @Value("classpath:/views/ticket/seat/seat-cell-layout.fxml")
     private Resource seatCellView;
@@ -53,9 +62,34 @@ public class TicketController {
         this.ticketDao = ticketDao;
     }
 
-
     public void setup(TicketType ticketType) {
-        priceLabel.setText(ticketType.getPrice() + "₽");
+        this.fieldsSetup(ticketType);
+
+        seatComboBox.setCellFactory(this::getSeatPreviewCell);
+        seatComboBox.setItems(FXCollections.observableArrayList(ticketDao.findAllByTicketType(ticketType)));
+        seatComboBox.getSelectionModel().selectFirst();
+
+        buyButton.setOnMouseClicked(event -> {
+            Optional<Passenger> optionalPassenger = controllerUtils.getPassenger();
+            if (optionalPassenger.isPresent()) {
+                Passenger passenger = optionalPassenger.get();
+                Ticket selectedTicket = seatComboBox.getSelectionModel().getSelectedItem();
+                selectedTicket.setPassenger(passenger);
+                ticketDao.save(selectedTicket);
+
+                buyButton.getStyleClass().add("soldButton");
+                buyButton.setText("Куплено");
+                log.info("passenger {} buy ticket {}", passenger.getUsername(), selectedTicket.getId());
+            } else {
+                controllerUtils.openAuthorization();
+            }
+        });
+
+        backButton.setOnMouseClicked(event -> controllerUtils.changeScene(View.TICKET_SEARCH));
+    }
+
+    private void fieldsSetup(TicketType ticketType) {
+        priceLabel.setText(String.valueOf(ticketType.getPrice()));
         conditionLabel.setText(ticketType.getCondition().getName());
         conditionDescriptionLabel.setText(ticketType.getCondition().getDescription());
 
@@ -86,30 +120,8 @@ public class TicketController {
                 .format(DateTimeFormatter.ofPattern("d MMM E")));
         arrivalCityLabel.setText(ticketType.getFlight().getArrivalAirport().getCity());
         arrivalAirportLabel.setText(ticketType.getFlight().getArrivalAirport().getName());
-
-        seatComboBox.setCellFactory(this::getSeatPreviewCell);
-        seatComboBox.setItems(FXCollections.observableArrayList(ticketDao.findAllByTicketType(ticketType)));
-        seatComboBox.getSelectionModel().selectFirst();
-
-        buyButton.setOnMouseClicked(event -> {
-            Optional<Passenger> optionalPassenger = controllerUtils.getPassenger();
-            if (optionalPassenger.isPresent()) {
-                Passenger passenger = optionalPassenger.get();
-                buyButton.getStyleClass().add("soldButton");
-                buyButton.setText("Куплено");
-
-                Ticket selectedTicket = seatComboBox.getSelectionModel().getSelectedItem();
-                selectedTicket.setPassenger(passenger);
-                ticketDao.save(selectedTicket);
-                log.info("passenger {} buy ticket {}", passenger.getUsername(), selectedTicket.getId());
-            } else {
-                controllerUtils.openAuthorization();
-            }
-        });
-        backButton.setOnMouseClicked(event -> {
-            controllerUtils.changeScene(View.TICKET_SEARCH);
-        });
     }
+
 
     private ListCell<Ticket> getSeatPreviewCell(ListView<Ticket> param) {
         return new ListCell<>() {
@@ -124,14 +136,14 @@ public class TicketController {
                         cellLayoutController.cellSetup(ticket);
 
                         if ((ticket.getPassenger() != null)) {
-                            setDisable(true);
+                            this.setDisable(true);
                         }
-                        setGraphic(cellLayout);
+                        this.setGraphic(cellLayout);
                     } catch (IOException ex) {
-                        ex.printStackTrace();
+                        log.error("failed to create new seat preview cell: {}", ex.getMessage());
                     }
                 } else {
-                    setGraphic(null); // duplication element bug fix
+                    this.setGraphic(null); // duplication element bug fix
                 }
             }
         };

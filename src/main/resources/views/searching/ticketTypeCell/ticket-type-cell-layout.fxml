@@ -14,9 +14,15 @@
               styleClass="flowPaneTicketType" stylesheets="@ticket-type.css">
 
         <VBox alignment="CENTER_LEFT">
-            <Label fx:id="priceLabel" text="45 000"/>
+            <HBox>
+                <Label fx:id="priceLabel" text="45 000"/>
+                <Label text="руб."/>
+            </HBox>
             <Button fx:id="selectTicketButton" text="Выбрать место"/>
-            <Label fx:id="ticketsCountLabel" text="30"/>
+            <HBox>
+                <Label fx:id="ticketsCountLabel" text="30"/>
+                <Label text=" билетов"/>
+            </HBox>
         </VBox>
 
         <VBox alignment="CENTER" spacing="10.0">

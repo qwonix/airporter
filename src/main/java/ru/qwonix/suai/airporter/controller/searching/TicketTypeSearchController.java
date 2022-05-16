@@ -27,6 +27,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+/**
+ * Контроллер окна выбора билета
+ */
 @Slf4j
 @Component
 public class TicketTypeSearchController implements Initializable {
@@ -39,7 +42,6 @@ public class TicketTypeSearchController implements Initializable {
     private ListView<TicketType> ticketTypeListView;
     @FXML
     private SearchableComboBox<Airport> departureSearchCB, arrivalSearchCB;
-
 
     @Value("classpath:/views/searching/ticketTypeCell/ticket-type-cell-layout.fxml")
     private Resource ticketTypeCellView;
@@ -76,20 +78,17 @@ public class TicketTypeSearchController implements Initializable {
                         TicketTypeCellController cellLayoutController = loader.getController();
                         cellLayoutController.cellSetup(ticketType);
 
-                        setGraphic(cellLayout);
+                        this.setGraphic(cellLayout);
                     } catch (IOException ex) {
-                        ex.printStackTrace();
+                        log.error("failed to create new ticket type cell: {}", ex.getMessage());
                     }
                 } else {
-                    setGraphic(null); // duplication element bug fix
+                    this.setGraphic(null); // duplication element bug fix
                 }
             }
         });
 
-        // todo: replace filter with sql query
-        List<TicketType>ticketTypes = ticketTypeDao.findAll().stream()
-                .filter(ticketType -> ticketType.getTickets().size() != 0)
-                .collect(Collectors.toList());
+        List<TicketType> ticketTypes = ticketTypeDao.findAllByTicket_PassengerIsNull();
         ticketTypeListView.setItems(FXCollections.observableArrayList(ticketTypes));
     }
 
@@ -111,11 +110,11 @@ public class TicketTypeSearchController implements Initializable {
         departureSearchCB.setCellFactory(this::getAirportPreviewCell);
         arrivalSearchCB.setCellFactory(this::getAirportPreviewCell);
 
-        ObservableList<Airport> observableAirports
-                = FXCollections.observableArrayList(airportDao.findAll(Sort.by(Sort.Direction.ASC, "city")));
+        ObservableList<Airport> airports = FXCollections.observableArrayList(
+                airportDao.findAll(Sort.by(Sort.Direction.ASC, "city")));
 
-        departureSearchCB.setItems(observableAirports);
-        arrivalSearchCB.setItems(observableAirports);
+        departureSearchCB.setItems(airports);
+        arrivalSearchCB.setItems(airports);
 
     }
 
@@ -135,7 +134,7 @@ public class TicketTypeSearchController implements Initializable {
                 ticketTypes = ticketTypeDao.findAllByFlight_ArrivalAirport(arrivalAirport);
             } else return;
 
-            // todo: replace filter with sql query
+            // todo: replace filter with sql query??
             ticketTypes = ticketTypes.stream()
                     .filter(ticketType -> ticketType.getTickets().size() != 0)
                     .collect(Collectors.toList());
@@ -157,12 +156,12 @@ public class TicketTypeSearchController implements Initializable {
                         AirportSelectedCellController cellLayoutController = loader.getController();
                         cellLayoutController.cellSetup(airport);
 
-                        setGraphic(cellLayout);
+                        this.setGraphic(cellLayout);
                     } catch (IOException ex) {
-                        ex.printStackTrace();
+                        log.error("failed to create new selected airport cell: {}", ex.getMessage());
                     }
                 } else {
-                    setGraphic(null); // duplication element bug fix
+                    this.setGraphic(null); // duplication element bug fix
                 }
             }
         };
@@ -180,12 +179,12 @@ public class TicketTypeSearchController implements Initializable {
                         AirportCellController cellLayoutController = loader.getController();
                         cellLayoutController.cellSetup(airport);
 
-                        setGraphic(cellLayout);
+                        this.setGraphic(cellLayout);
                     } catch (IOException ex) {
-                        ex.printStackTrace();
+                        log.error("failed to create new airport preview cell: {}", ex.getMessage());
                     }
                 } else {
-                    setGraphic(null); // duplication element bug fix
+                    this.setGraphic(null); // duplication element bug fix
                 }
             }
         };

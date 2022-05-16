@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import ru.qwonix.suai.airporter.model.entity.Airport;
 
 /**
- * Контроллер текущей выбранной ячейки SearchableComboBox
+ * Контроллер текущей выбранной ячейки Аэропорта SearchableComboBox
  */
 @Component
 public class AirportSelectedCellController {

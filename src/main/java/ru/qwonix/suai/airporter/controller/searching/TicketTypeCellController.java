@@ -6,18 +6,26 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import ru.qwonix.suai.airporter.controller.ControllerUtils;
 import ru.qwonix.suai.airporter.controller.ticket.TicketController;
+import ru.qwonix.suai.airporter.model.entity.Ticket;
 import ru.qwonix.suai.airporter.model.entity.TicketType;
 
 import java.io.IOException;
 import java.time.Duration;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
 
+/**
+ * Контроллер ячейки выбора билета
+ */
+@Slf4j
 @Component
 public class TicketTypeCellController {
 
@@ -27,13 +35,7 @@ public class TicketTypeCellController {
     @FXML
     private Button selectTicketButton;
     @FXML
-    private Label priceLabel;
-    @FXML
-    private Label ticketsCountLabel;
-    @FXML
-    private Label airlineLabel;
-    @FXML
-    private Label conditionLabel;
+    private Label priceLabel, ticketsCountLabel, airlineLabel, conditionLabel;
 
     @FXML
     private Label departureTimeLabel, departureCityLabel, departureDateLabel;
@@ -50,7 +52,13 @@ public class TicketTypeCellController {
         this.applicationContext = applicationContext;
     }
 
-    private void onSelect(TicketType ticketType) {
+    public void cellSetup(TicketType ticketType) {
+        this.fieldsSetup(ticketType);
+
+        selectTicketButton.setOnMouseClicked(event -> onSelectTicket(ticketType));
+    }
+
+    private void onSelectTicket(TicketType ticketType) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(ticketView.getURL());
             fxmlLoader.setControllerFactory(this.applicationContext::getBean);
@@ -60,14 +68,17 @@ public class TicketTypeCellController {
 
             controllerUtils.getMainStage().setScene(new Scene(load));
         } catch (IOException ex) {
-            ex.printStackTrace();
+            log.error("failed to create new ticket view: {}", ex.getMessage());
         }
     }
 
-    public void cellSetup(TicketType ticketType) {
-        priceLabel.setText(ticketType.getPrice() + "руб");
-        // todo: make tickets size where passenger != null
-        ticketsCountLabel.setText(ticketType.getTickets().size() + " билетов");
+    private void fieldsSetup(TicketType ticketType) {
+        priceLabel.setText(String.valueOf(ticketType.getPrice()));
+
+        List<Ticket> tickets = ticketType.getTickets().stream()
+                .filter(ticket -> ticket.getPassenger() == null)
+                .collect(Collectors.toList());
+        ticketsCountLabel.setText(String.valueOf(tickets.size()));
 
         airlineLabel.setText(ticketType.getFlight().getAircraft().getAirline().getName());
         conditionLabel.setText(ticketType.getCondition().getName());
@@ -85,8 +96,6 @@ public class TicketTypeCellController {
         arrivalCityLabel.setText(ticketType.getFlight().getArrivalAirport().getCity());
         arrivalDateLabel.setText(ticketType.getFlight().getScheduledArrival()
                 .format(DateTimeFormatter.ofPattern("d MMM uuu, E")));
-
-        selectTicketButton.setOnMouseClicked(event -> onSelect(ticketType));
     }
 }
 

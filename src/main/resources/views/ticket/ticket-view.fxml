@@ -11,7 +11,11 @@
 
     <left>
         <VBox>
+            <HBox>
             <Label fx:id="priceLabel" styleClass="priceLabel" text="45 000"/>
+            <Label styleClass="priceLabel" text="₽"/>
+
+            </HBox>
             <Button fx:id="buyButton" styleClass="buyButton" text="Купить билет"/>
             <VBox styleClass="roundedBox">
                 <Label text="Тариф"/>

@@ -70,7 +70,6 @@ public class ControllerUtils {
         changeScene(mainStage, view);
     }
 
-
     public void changeScene(Stage stage, View view) {
         try {
             URL url;
@@ -104,7 +103,6 @@ public class ControllerUtils {
 
     public void openAuthorization() {
         try {
-//            applicationContext.getBean(Stage.class);
             FXMLLoader fxmlLoader = new FXMLLoader(authorizationView.getURL());
             fxmlLoader.setControllerFactory(this.applicationContext::getBean);
             Parent load = fxmlLoader.load();
