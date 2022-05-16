@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -84,7 +85,9 @@ public class TicketSearchController implements Initializable {
                 }
             }
         });
-        ticketTypeListView.setItems(FXCollections.observableArrayList(ticketTypeDao.findAll()));
+        List<TicketType> all = ticketTypeDao.findAll();
+
+        ticketTypeListView.setItems(FXCollections.observableArrayList(all));
     }
 
     /**
@@ -107,6 +110,7 @@ public class TicketSearchController implements Initializable {
 
         ObservableList<Airport> observableAirports
                 = FXCollections.observableArrayList(airportDao.findAll(Sort.by(Sort.Direction.ASC, "city")));
+
         departureSearchCB.setItems(observableAirports);
         arrivalSearchCB.setItems(observableAirports);
 
@@ -127,6 +131,10 @@ public class TicketSearchController implements Initializable {
             } else if (arrivalAirport != null) {
                 ticketTypes = ticketTypeDao.findAllByFlight_ArrivalAirport(arrivalAirport);
             } else return;
+
+            ticketTypes = ticketTypes.stream()
+                    .filter(ticketType -> ticketType.getTickets().size() != 0)
+                    .collect(Collectors.toList());
 
             ticketTypeListView.getItems().clear();
             ticketTypeListView.getItems().addAll(ticketTypes);

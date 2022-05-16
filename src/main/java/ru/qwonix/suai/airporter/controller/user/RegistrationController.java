@@ -10,6 +10,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.qwonix.suai.airporter.controller.ControllerUtils;
 import ru.qwonix.suai.airporter.controller.View;
@@ -24,6 +25,7 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Slf4j
 @Component
 public class RegistrationController implements Initializable {
 
@@ -31,7 +33,7 @@ public class RegistrationController implements Initializable {
     private final PassengerDao passengerDao;
 
     private Gender gender = Gender.MALE;
-    
+
     @FXML
     private TextField usernameField, phoneField, emailField,
             passportField, firstnameField, lastnameField, patronymicField;
@@ -76,8 +78,8 @@ public class RegistrationController implements Initializable {
                 isValidName(lastname) &
                 isValidName(patronymic) &
                 isValidBirthdate(birthdate);
-        
-        
+
+
         if (isValid) {
             Passenger passenger = new Passenger();
             passenger.setUsername(username);
@@ -91,7 +93,8 @@ public class RegistrationController implements Initializable {
             passenger.setBirthDate(birthdate);
             passenger.setGender(gender);
 
-            System.out.println("харош добавил в базу");
+            passengerDao.save(passenger);
+            log.info("new passenger {}, username: {}", passenger.getId(), passenger.getUsername());
         } else {
             usernameCaption.setVisible(true);
             passwordCaption.setVisible(true);
@@ -115,7 +118,11 @@ public class RegistrationController implements Initializable {
     private boolean isValidUsername(String username) {
         int minLength = 5;
         int maxLength = 30;
-        if (username.length() < minLength) {
+
+        if (passengerDao.existsPassengerByUsername(username)) {
+            usernameCaption.setText("Логин занят");
+            return false;
+        } else if (username.length() < minLength) {
             usernameCaption.setText("Длина меньше " + minLength);
             return false;
         } else if (username.length() > maxLength) {
@@ -196,6 +203,10 @@ public class RegistrationController implements Initializable {
             phoneCaption.setText("Формат номера: +7 (ххх) ххх-хх-хх");
             return false;
         }
+        else if (passengerDao.existsPassengerByPhone(phone)) {
+            phoneCaption.setText("Номер телефона занят");
+            return false;
+        }
 
         return true;
     }
@@ -214,6 +225,9 @@ public class RegistrationController implements Initializable {
                 .matcher(email);
         if (!phoneMatcher.find()) {
             emailCaption.setText("Введите корректный email");
+            return false;
+        } else if (passengerDao.existsPassengerByEmail(email)) {
+            emailCaption.setText("Почта занята");
             return false;
         }
 
@@ -234,6 +248,10 @@ public class RegistrationController implements Initializable {
                 .matcher(passport);
         if (!passportMatcher.find()) {
             passportCaption.setText("Введите корректный номер паспорта");
+            return false;
+        }
+        else if (passengerDao.existsPassengerByPassport(passport)) {
+            passportCaption.setText("Паспорт уже используется");
             return false;
         }
 
@@ -288,7 +306,7 @@ public class RegistrationController implements Initializable {
 
         int years = Period.between(birthdate, LocalDate.now()).getYears();
         if (years < 18 || years > 150) {
-            birthdateCaption.setText("years < 18 || years > 150");
+            birthdateCaption.setText("Вы должны быть совершеннолетним");
             return false;
         }
 

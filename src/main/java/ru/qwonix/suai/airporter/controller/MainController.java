@@ -26,7 +26,7 @@ public class MainController implements Initializable {
         });
 
         authButton.setOnMouseClicked(event -> {
-            controllerUtils.changeScene(View.AUTHORIZATION);
+            controllerUtils.openAuthorization();
         });
     }
 }

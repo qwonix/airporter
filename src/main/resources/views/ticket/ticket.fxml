@@ -16,7 +16,7 @@
             <VBox styleClass="roundedBox">
                 <Label text="Тариф"/>
                 <Label fx:id="conditionLabel" text="Эконом"/>
-                <Label fx:id="conditionDescription" wrapText="true" text="Эконом это дешево"/>
+                <Label fx:id="conditionDescriptionLabel" wrapText="true" text="Эконом это дешево"/>
             </VBox>
             <VBox styleClass="roundedBox">
                 <Label text="Самолёт"/>
@@ -37,7 +37,7 @@
             <VBox styleClass="roundedBox">
                 <HBox>
                     <ImageView/>
-                    <Label fx:id="airlineName" styleClass="titleLabel" text="ГУАП"/>
+                    <Label fx:id="airlineNameLabel" styleClass="titleLabel" text="ГУАП"/>
                 </HBox>
                 <HBox>
                     <ImageView/>

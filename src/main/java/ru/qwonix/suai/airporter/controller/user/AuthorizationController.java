@@ -38,6 +38,7 @@ public class AuthorizationController {
 
     @FXML
     private void onForgetPasswordButton_Clicked(MouseEvent mouseEvent) {
+        // todo: восстановление пароля
     }
 
 
@@ -51,7 +52,7 @@ public class AuthorizationController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        if (!passengerDao.existsByUsername(username)) {
+        if (!passengerDao.existsPassengerByUsername(username)) {
             usernameCaption.setText("Пользователя с таким логином нет");
             return;
         } else {

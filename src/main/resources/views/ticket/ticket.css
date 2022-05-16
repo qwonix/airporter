@@ -12,6 +12,11 @@
     -fx-text-fill: white;
     -fx-border-radius: 22;
 }
+
+.soldButton {
+    -fx-background-color: #0c73fe;
+}
+
 .buyButton:hover {
     -fx-background-color: #FF6F32;
 }

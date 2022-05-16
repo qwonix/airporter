@@ -51,8 +51,7 @@ public class TicketTypeCellController {
         this.applicationContext = applicationContext;
     }
 
-    private void onSelect(MouseEvent event, TicketType ticketType) {
-        System.out.println("select " + ticketType.getId());
+    private void onSelect(TicketType ticketType) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(ticketView.getURL());
             fxmlLoader.setControllerFactory(this.applicationContext::getBean);
@@ -87,7 +86,7 @@ public class TicketTypeCellController {
         arrivalDateLabel.setText(ticketType.getFlight().getScheduledArrival()
                 .format(DateTimeFormatter.ofPattern("d MMM uuu, E")));
 
-        selectTicketButton.setOnMouseClicked(event -> onSelect(event, ticketType));
+        selectTicketButton.setOnMouseClicked(event -> onSelect(ticketType));
     }
 }
 
