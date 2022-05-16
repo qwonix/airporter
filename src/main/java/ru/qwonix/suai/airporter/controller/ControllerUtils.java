@@ -3,6 +3,7 @@ package ru.qwonix.suai.airporter.controller;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,15 +11,21 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
+import ru.qwonix.suai.airporter.model.entity.Passenger;
 
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Optional;
 
 @Component
 public class ControllerUtils {
+
+    @Setter
+    @Getter
+    private Optional<Passenger> passenger = Optional.empty();
 
     private final ApplicationContext applicationContext;
 
@@ -36,7 +43,7 @@ public class ControllerUtils {
 
     @Setter
     @Getter
-    private Stage stage;
+    private Stage mainStage;
 
     public ControllerUtils(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
@@ -60,6 +67,10 @@ public class ControllerUtils {
     }
 
     public void changeScene(View view) {
+        changeScene(mainStage, view);
+    }
+
+    public void changeScene(Stage stage, View view) {
         try {
             URL url;
 
@@ -89,4 +100,24 @@ public class ControllerUtils {
             e.printStackTrace();
         }
     }
+
+    public void openAuthorization() {
+        try {
+//            applicationContext.getBean(Stage.class);
+            FXMLLoader fxmlLoader = new FXMLLoader(authorizationView.getURL());
+            fxmlLoader.setControllerFactory(this.applicationContext::getBean);
+            Parent load = fxmlLoader.load();
+
+            Stage newStage = new Stage();
+            newStage.setTitle("Authorization");
+            newStage.setScene(new Scene(load));
+            newStage.initModality(Modality.WINDOW_MODAL);
+            newStage.initOwner(this.mainStage);
+
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

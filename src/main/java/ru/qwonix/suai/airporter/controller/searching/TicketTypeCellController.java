@@ -60,7 +60,7 @@ public class TicketTypeCellController {
             TicketDetailsController cellLayoutController = fxmlLoader.getController();
             cellLayoutController.setup(ticketType);
 
-            controllerUtils.getStage().setScene(new Scene(load));
+            controllerUtils.getMainStage().setScene(new Scene(load));
         } catch (IOException ex) {
             ex.printStackTrace();
         }

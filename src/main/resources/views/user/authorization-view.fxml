@@ -14,7 +14,7 @@
             </VBox>
             <VBox alignment="CENTER_LEFT">
                 <Label text="Пароль"/>
-                <PasswordField fx:id="passwordField" onKeyTyped="#onPasswordChanged" prefHeight="30.0" prefWidth="200.0" promptText="Пароль"/>
+                <PasswordField fx:id="passwordField" prefHeight="30.0" prefWidth="200.0" promptText="Пароль"/>
                 <Label fx:id="passwordCaption" styleClass="fieldValidation" />
 
             </VBox>

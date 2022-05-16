@@ -65,9 +65,9 @@
                 <Label fx:id="nameCaption" styleClass="fieldValidation" visible="false"/>
             </VBox>
             <VBox>
-                <DatePicker fx:id="birthdayDatePicker" onAction="#onBirthdayChanged" promptText="День рождения"
+                <DatePicker fx:id="birthdateDatePicker" onAction="#onBirthdayChanged" promptText="День рождения"
                             prefHeight="30.0" prefWidth="70.0"/>
-                <Label fx:id="birthdayCaption" styleClass="fieldValidation" visible="false"/>
+                <Label fx:id="birthdateCaption" styleClass="fieldValidation" visible="false"/>
             </VBox>
             <HBox>
                 <fx:define>

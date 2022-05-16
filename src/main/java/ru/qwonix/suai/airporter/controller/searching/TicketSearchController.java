@@ -110,11 +110,6 @@ public class TicketSearchController implements Initializable {
         departureSearchCB.setItems(observableAirports);
         arrivalSearchCB.setItems(observableAirports);
 
-//        departureSearchCB.getSelectionModel()
-//                .selectNext();
-//        arrivalSearchCB.getSelectionModel()
-//                .selectFirst();
-
     }
 
     private InvalidationListener updateTickets() {

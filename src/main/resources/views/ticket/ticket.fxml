@@ -3,7 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@ticket.css" xmlns="http://javafx.com/javafx/16"
+<?import org.controlsfx.control.SearchableComboBox?>
+<BorderPane prefHeight="400.0" prefWidth="600.0"
+            stylesheets="@ticket.css" xmlns="http://javafx.com/javafx/16"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ru.qwonix.suai.airporter.controller.ticket.TicketDetailsController">
 
@@ -14,14 +16,16 @@
             <VBox styleClass="roundedBox">
                 <Label text="Тариф"/>
                 <Label fx:id="conditionLabel" text="Эконом"/>
-                <Label fx:id="conditionDescription" text="Эконом это дешево"/>
+                <Label fx:id="conditionDescription" wrapText="true" text="Эконом это дешево"/>
             </VBox>
             <VBox styleClass="roundedBox">
                 <Label text="Самолёт"/>
                 <Label fx:id="aircraftLabel" text="GUAP"/>
                 <Label fx:id="aircraftProductionDate" text="1945"/>
             </VBox>
+            <SearchableComboBox fx:id="seatComboBox"/>
         </VBox>
+
     </left>
 
     <center>
@@ -30,9 +34,7 @@
                 <Label fx:id="ticketTitleLabel" styleClass="ticketTitleLabel" text="Санкт-Петербург – Россия"/>
                 <Label fx:id="flightDurationLabel" styleClass="descriptionLabel" text="5ч 35м в пути"/>
             </VBox>
-
-
-            <VBox>
+            <VBox styleClass="roundedBox">
                 <HBox>
                     <ImageView/>
                     <Label fx:id="airlineName" styleClass="titleLabel" text="ГУАП"/>

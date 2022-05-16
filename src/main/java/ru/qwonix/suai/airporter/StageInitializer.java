@@ -20,7 +20,7 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
     public void onApplicationEvent(StageReadyEvent event) {
         Stage stage = event.getStage();
 
-        controllerUtils.setStage(stage);
+        controllerUtils.setMainStage(stage);
         controllerUtils.changeScene(View.MAIN);
 
         stage.show();

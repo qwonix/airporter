@@ -3,16 +3,19 @@ package ru.qwonix.suai.airporter.controller.user;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
 import ru.qwonix.suai.airporter.controller.ControllerUtils;
 import ru.qwonix.suai.airporter.controller.View;
 import ru.qwonix.suai.airporter.model.dao.PassengerDao;
 import ru.qwonix.suai.airporter.model.entity.Gender;
+import ru.qwonix.suai.airporter.model.entity.Passenger;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -27,17 +30,19 @@ public class RegistrationController implements Initializable {
     private final ControllerUtils controllerUtils;
     private final PassengerDao passengerDao;
 
+    private Gender gender = Gender.MALE;
+    
     @FXML
     private TextField usernameField, phoneField, emailField,
             passportField, firstnameField, lastnameField, patronymicField;
     @FXML
-    private DatePicker birthdayDatePicker;
+    private DatePicker birthdateDatePicker;
     @FXML
     private PasswordField passwordField, passwordRepeatField;
 
     @FXML
     private Label usernameCaption, passwordCaption, passwordRepeatCaption,
-            phoneCaption, emailCaption, passportCaption, nameCaption, birthdayCaption;
+            phoneCaption, emailCaption, passportCaption, nameCaption, birthdateCaption;
 
     public RegistrationController(ControllerUtils controllerUtils, PassengerDao passengerDao) {
         this.controllerUtils = controllerUtils;
@@ -56,10 +61,10 @@ public class RegistrationController implements Initializable {
         String phone = phoneField.getText();
         String email = emailField.getText();
         String passport = passportField.getText();
-        String firstnameFieldText = firstnameField.getText();
+        String firstname = firstnameField.getText();
         String lastname = lastnameField.getText();
         String patronymic = patronymicField.getText();
-        LocalDate birthday = birthdayDatePicker.getValue();
+        LocalDate birthdate = birthdateDatePicker.getValue();
 
         boolean isValid = isValidUsername(username) &
                 isValidPassword(password) &
@@ -67,12 +72,25 @@ public class RegistrationController implements Initializable {
                 isValidPhone(phone) &
                 isValidEmail(email) &
                 isValidPassport(passport) &
-                isValidName(firstnameFieldText) &
+                isValidName(firstname) &
                 isValidName(lastname) &
                 isValidName(patronymic) &
-                isValidBirthday(birthday);
-
+                isValidBirthdate(birthdate);
+        
+        
         if (isValid) {
+            Passenger passenger = new Passenger();
+            passenger.setUsername(username);
+            passenger.setPassword(password);
+            passenger.setPhone(phone);
+            passenger.setEmail(email);
+            passenger.setPassport(passport);
+            passenger.setFirstName(firstname);
+            passenger.setLastName(lastname);
+            passenger.setPatronymic(patronymic);
+            passenger.setBirthDate(birthdate);
+            passenger.setGender(gender);
+
             System.out.println("харош добавил в базу");
         } else {
             usernameCaption.setVisible(true);
@@ -82,7 +100,7 @@ public class RegistrationController implements Initializable {
             emailCaption.setVisible(true);
             passportCaption.setVisible(true);
             nameCaption.setVisible(true);
-            birthdayCaption.setVisible(true);
+            birthdateCaption.setVisible(true);
         }
     }
 
@@ -91,7 +109,7 @@ public class RegistrationController implements Initializable {
         String genderMark = (String)
                 ((RadioButton) (event.getSource()))
                         .getUserData();
-        Gender gender = Gender.fromCode(genderMark.charAt(0));
+        gender = Gender.fromCode(genderMark.charAt(0));
     }
 
     private boolean isValidUsername(String username) {
@@ -110,16 +128,16 @@ public class RegistrationController implements Initializable {
             usernameCaption.setText("Разрешён только английский алфавит, цифры и символ _ " + minLength);
             return false;
         }
-
-        usernameCaption.setVisible(false);
-        usernameCaption.setText(null);
         return true;
     }
 
     @FXML
     private void onUsernameChanged(KeyEvent inputMethodEvent) {
         String username = ((TextField) (inputMethodEvent.getSource())).getText();
-        isValidUsername(username);
+        if (isValidUsername(username)) {
+            usernameCaption.setVisible(false);
+            usernameCaption.setText(null);
+        }
     }
 
     private boolean isValidPassword(String password) {
@@ -139,15 +157,16 @@ public class RegistrationController implements Initializable {
             return false;
         }
 
-        passwordCaption.setVisible(false);
-        passwordCaption.setText(null);
         return true;
     }
 
     @FXML
     private void onPasswordChanged(KeyEvent inputMethodEvent) {
         String password = ((TextField) (inputMethodEvent.getSource())).getText();
-        isValidPassword(password);
+        if (isValidPassword(password)) {
+            passwordCaption.setVisible(false);
+            passwordCaption.setText(null);
+        }
     }
 
 
@@ -157,15 +176,16 @@ public class RegistrationController implements Initializable {
             return false;
         }
 
-        passwordRepeatCaption.setVisible(false);
-        passwordRepeatCaption.setText(null);
         return true;
     }
 
     @FXML
     private void onPasswordRepeatChanged(KeyEvent inputMethodEvent) {
         String passwordRepeat = ((TextField) (inputMethodEvent.getSource())).getText();
-        isValidPasswordRepeat(passwordRepeat);
+        if (isValidPasswordRepeat(passwordRepeat)) {
+            passwordRepeatCaption.setVisible(false);
+            passwordRepeatCaption.setText(null);
+        }
     }
 
     private boolean isValidPhone(String phone) {
@@ -176,8 +196,6 @@ public class RegistrationController implements Initializable {
             phoneCaption.setText("Формат номера: +7 (ххх) ххх-хх-хх");
             return false;
         }
-        phoneCaption.setVisible(false);
-        phoneCaption.setText(null);
 
         return true;
     }
@@ -185,7 +203,10 @@ public class RegistrationController implements Initializable {
     @FXML
     private void onPhoneChanged(KeyEvent inputMethodEvent) {
         String phone = ((TextField) (inputMethodEvent.getSource())).getText();
-        isValidPhone(phone);
+        if (isValidPhone(phone)) {
+            phoneCaption.setVisible(false);
+            phoneCaption.setText(null);
+        }
     }
 
     private boolean isValidEmail(String email) {
@@ -195,8 +216,6 @@ public class RegistrationController implements Initializable {
             emailCaption.setText("Введите корректный email");
             return false;
         }
-        emailCaption.setVisible(false);
-        emailCaption.setText(null);
 
         return true;
     }
@@ -204,7 +223,10 @@ public class RegistrationController implements Initializable {
     @FXML
     private void onEmailChanged(KeyEvent inputMethodEvent) {
         String email = ((TextField) (inputMethodEvent.getSource())).getText();
-        isValidEmail(email);
+        if (isValidEmail(email)) {
+            emailCaption.setVisible(false);
+            emailCaption.setText(null);
+        }
     }
 
     private boolean isValidPassport(String passport) {
@@ -214,8 +236,6 @@ public class RegistrationController implements Initializable {
             passportCaption.setText("Введите корректный номер паспорта");
             return false;
         }
-        passportCaption.setVisible(false);
-        passportCaption.setText(null);
 
         return true;
     }
@@ -223,7 +243,10 @@ public class RegistrationController implements Initializable {
     @FXML
     private void onPassportChanged(KeyEvent inputMethodEvent) {
         String passport = ((TextField) (inputMethodEvent.getSource())).getText();
-        isValidPassport(passport);
+        if (isValidPassport(passport)) {
+            passportCaption.setVisible(false);
+            passportCaption.setText(null);
+        }
     }
 
     private boolean isValidName(String name) {
@@ -257,28 +280,28 @@ public class RegistrationController implements Initializable {
         isValidName(patronymic);
     }
 
-    private boolean isValidBirthday(LocalDate birthday) {
-        if (birthday == null) {
-            birthdayCaption.setText("Укажите ваш день рождения");
+    private boolean isValidBirthdate(LocalDate birthdate) {
+        if (birthdate == null) {
+            birthdateCaption.setText("Укажите ваш день рождения");
             return false;
         }
 
-        int years = Period.between(birthday, LocalDate.now()).getYears();
+        int years = Period.between(birthdate, LocalDate.now()).getYears();
         if (years < 18 || years > 150) {
-            birthdayCaption.setText("years < 18 || years > 150");
+            birthdateCaption.setText("years < 18 || years > 150");
             return false;
         }
-
-        birthdayCaption.setVisible(false);
-        birthdayCaption.setText(null);
 
         return true;
     }
 
     @FXML
     private void onBirthdayChanged(ActionEvent inputMethodEvent) {
-        LocalDate birthday = ((DatePicker) (inputMethodEvent.getSource())).getValue();
-        isValidBirthday(birthday);
+        LocalDate birthdate = ((DatePicker) (inputMethodEvent.getSource())).getValue();
+        if (isValidBirthdate(birthdate)) {
+            birthdateCaption.setVisible(false);
+            birthdateCaption.setText(null);
+        }
     }
 
     @FXML
@@ -291,6 +314,7 @@ public class RegistrationController implements Initializable {
 
     @FXML
     private void onAuthorizationButton_Clicked(MouseEvent mouseEvent) {
-        controllerUtils.changeScene(View.AUTHORIZATION);
+        Stage authorizationStage = (Stage) ((Node) (mouseEvent.getSource())).getScene().getWindow();
+        controllerUtils.changeScene(authorizationStage, View.AUTHORIZATION);
     }
 }

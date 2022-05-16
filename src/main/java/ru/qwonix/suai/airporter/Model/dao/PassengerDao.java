@@ -6,6 +6,8 @@ import ru.qwonix.suai.airporter.model.entity.Passenger;
 
 public interface PassengerDao extends JpaRepository<Passenger, Integer> {
 
+    Passenger findByUsername(String username);
+
     @Query("select case when p.password = ?#{@controllerUtils.encodePassword(#password)} then true else false end from Passenger p where p.username=:username")
     boolean isCorrectPasswordByUsername(String username, String password);
 

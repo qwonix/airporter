@@ -1,3 +1,7 @@
+.root {
+    background-color: #EFF1F4;
+}
+
 .priceLabel {
     -fx-font-size: 28px;
 }
@@ -8,12 +12,20 @@
     -fx-text-fill: white;
     -fx-border-radius: 22;
 }
+.buyButton:hover {
+    -fx-background-color: #FF6F32;
+}
+.buyButton:pressed {
+    -fx-background-color: #ec662c;
+}
 
 .roundedBox {
     -fx-border-radius: 10;
     -fx-background-radius: 10;
+    -fx-background-color: white;
     -fx-border-color: black;
-    -fx-border-width: 1px;
+    -fx-padding: 15;
+    -fx-spacing: 10;
 }
 
 .ticketTitleLabel {
