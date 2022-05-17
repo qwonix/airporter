@@ -1,79 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.SVGPath?>
-<FlowPane xmlns="http://javafx.com/javafx/16"
-          xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="ru.qwonix.suai.airporter.controller.searching.TicketTypeCellController">
+<?import javafx.scene.shape.*?>
 
-    <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="70.0" prefWidth="700"
-              styleClass="flowPaneTicketType" stylesheets="@ticket-type.css">
+<BorderPane fx:id="ticketTypeParent"
+            stylesheets="@ticket-type.css"
+            xmlns="http://javafx.com/javafx/16"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ru.qwonix.suai.airporter.controller.searching.TicketTypeCellController">
 
-        <VBox alignment="CENTER_LEFT">
-            <HBox>
-                <Label fx:id="priceLabel" text="45 000"/>
-                <Label text="руб."/>
-            </HBox>
-            <Button fx:id="selectTicketButton" text="Выбрать место"/>
-            <HBox>
-                <Label fx:id="ticketsCountLabel" text="30"/>
-                <Label text=" билетов"/>
-            </HBox>
-        </VBox>
+    <left>
+        <HBox>
+            <VBox alignment="CENTER">
+                <VBox alignment="CENTER">
+                    <HBox alignment="CENTER">
+                        <Label fx:id="priceLabel" styleClass="price-label" text="45 000"/>
+                        <Label styleClass="price-label" text="₽"/>
+                    </HBox>
+                    <Button fx:id="selectTicketButton" styleClass="buy-button" text="Выбрать место"/>
+                </VBox>
+                <HBox alignment="CENTER">
+                    <Label styleClass="description-label" text="Доступно "/>
+                    <Label fx:id="ticketsCountLabel" text="30"/>
+                    <Label text="шт."/>
+                </HBox>
+            </VBox>
 
-        <VBox alignment="CENTER" spacing="10.0">
+            <Separator styleClass="margin-box" orientation="VERTICAL"/>
+        </HBox>
+    </left>
+
+    <center>
+        <VBox alignment="CENTER">
             <HBox>
-                <Label fx:id="airlineLabel" text="ГУАП"/>
+                <Label fx:id="airlineLabel" styleClass="airline-label" text="ГУАП"/>
                 <Label fx:id="conditionLabel" text="Эконом класс"/>
             </HBox>
-
-            <HBox alignment="CENTER">
+            <HBox>
                 <VBox alignment="CENTER_LEFT">
-                    <Label fx:id="departureTimeLabel" text="9:20"/>
-                    <Label fx:id="departureCityLabel" text="Санкт-Петербург"/>
-                    <Label fx:id="departureDateLabel" text="1 сен 2022, ср"/>
+                    <Label fx:id="departureTimeLabel" styleClass="time-label" text="9:20"/>
+                    <Label fx:id="departureCityLabel" styleClass="caption-label" text="Санкт-Петербург"/>
+                    <Label fx:id="departureDateLabel" styleClass="caption-label" text="1 сен 2022, ср"/>
                 </VBox>
 
                 <HBox>
-                    <ImageView fitHeight="45.0" fitWidth="50.0" opacity="0.6">
+                    <ImageView fitHeight="32.0" fitWidth="50.0" opacity="0.6" styleClass="plane-image">
                         <Image url="@../../../img/ticket/takeoff.png"/>
                     </ImageView>
 
                     <VBox alignment="TOP_CENTER">
-                        <Region prefHeight="27" prefWidth="250" style="-fx-background-color: #b6b6b6;">
+                        <Region fx:id="flightPath" prefHeight="27" prefWidth="250">
                             <shape>
                                 <SVGPath
                                         content="M250.999,0.999 C257.494,1.273 263.841,0.574 270.44,0.898 C436.837,9.631 499.0,35.999 499.0,35.999 C499.0,35.999 381.138,1.993 250.999,2.999 C114.80,0.222 0.0,35.999 0.0,35.999 C0.0,35.999 61.706,8.390 226.931,0.917 C234.722,0.565 242.743,1.257 250.999,0.999 Z"/>
                             </shape>
                         </Region>
                         <HBox alignment="TOP_CENTER">
-                            <Label text="В пути: "/>
-                            <Label fx:id="flightDurationLabel" text="5ч 35м"/>
+                            <Label styleClass="caption-label" text="В пути: "/>
+                            <Label fx:id="flightDurationLabel" styleClass="caption-label" text="5ч 35м"/>
                         </HBox>
-
                     </VBox>
-                    <ImageView fitHeight="40.0" fitWidth="47.0" opacity="0.6">
+
+                    <ImageView fitHeight="32.0" fitWidth="50.0" opacity="0.6" styleClass="plane-image">
                         <Image url="@../../../img/ticket/land.png"/>
                     </ImageView>
                 </HBox>
 
                 <VBox alignment="CENTER_RIGHT">
-                    <Label fx:id="arrivalTimeLabel" text="14:55"/>
-                    <Label fx:id="arrivalCityLabel" text="Санкт-Петербург"/>
-                    <Label fx:id="arrivalDateLabel" text="1 сен 2022, ср"/>
+                    <Label fx:id="arrivalTimeLabel" styleClass="time-label" text="14:55"/>
+                    <Label fx:id="arrivalCityLabel" styleClass="caption-label" text="Санкт-Петербург"/>
+                    <Label fx:id="arrivalDateLabel" styleClass="caption-label" text="1 сен 2022, ср"/>
                 </VBox>
             </HBox>
         </VBox>
-        <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-        </padding>
-
-    </FlowPane>
-    <padding>
-        <Insets bottom="5.0" top="5.0"/>
-    </padding>
-</FlowPane>
+    </center>
+</BorderPane>

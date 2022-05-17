@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import org.controlsfx.control.SearchableComboBox?>
-<BorderPane xmlns="http://javafx.com/javafx/18"
-            xmlns:fx="http://javafx.com/fxml/1"
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.controlsfx.control.*?>
+
+<BorderPane fx:id="ticketSearchParent" prefHeight="720" prefWidth="1280" stylesheets="@ticket-search.css"
+            xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ru.qwonix.suai.airporter.controller.searching.TicketTypeSearchController">
-
     <center>
-        <ListView fx:id="ticketTypeListView" BorderPane.alignment="CENTER"/>
+        <BorderPane>
+            <top>
+                <HBox>
+                    <SearchableComboBox fx:id="departureSearchCB" styleClass="searching-combo-box"/>
+                    <SearchableComboBox fx:id="arrivalSearchCB" styleClass="searching-combo-box"/>
+                    <DatePicker fx:id="departureDatePicker" promptText="Все"/>
+                </HBox>
+            </top>
+            <center>
+                <ListView fx:id="ticketTypeListView"/>
+            </center>
+            <padding>
+                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
+            </padding>
+        </BorderPane>
     </center>
-    <top>
-        <HBox BorderPane.alignment="CENTER">
-            <SearchableComboBox fx:id="departureSearchCB"/>
-            <SearchableComboBox fx:id="arrivalSearchCB"/>
-        </HBox>
-    </top>
-
-
 </BorderPane>

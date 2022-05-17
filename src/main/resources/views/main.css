@@ -1,3 +1,77 @@
+* {
+    -strong-description-grey-label: #85919a;
+    -default-background-color: #EFF1F4;
+    -default-text-fill-black: #0c131d;
+    -default-selected-cell-background: #e8f4ff;
+    -BUY-BUTTON-BACKGROUND: #fc6e32;
+}
+
 .root {
-    -fx-font-family: "Verdana";
+    -fx-font-family: "Tahoma";
+    -fx-background-color: -default-background-color;
+}
+
+.margin-box {
+    -fx-padding: 20;
+    -fx-spacing: 10;
+    -fx-border-insets: 12px;
+    -fx-background-insets: 12px;
+}
+
+.rounded-box {
+    -fx-padding: 15 45 15 45;
+    -fx-spacing: 5;
+    -fx-background-radius: 10;
+    -fx-background-color: white;
+}
+
+.airport-city-label {
+    -fx-text-fill: -default-text-fill-black;
+    -fx-font-size: 14;
+    -fx-font-weight: 700;
+}
+
+.price-label {
+    -fx-font-weight: 700;
+    -fx-font-size: 26;
+    -fx-text-fill: -default-text-fill-black;
+}
+
+.airline-label {
+    -fx-font-size: 19px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #0b62d4;
+}
+
+.buy-button {
+    -fx-pref-width: 170;
+    -fx-pref-height: 27;
+    -fx-background-color: -BUY-BUTTON-BACKGROUND;
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+    -fx-background-radius: 7;
+    -fx-font-weight: 600;
+}
+
+.buy-button:hover {
+    -fx-background-color: derive(-BUY-BUTTON-BACKGROUND, -12%);
+}
+
+.buy-button:pressed {
+    -fx-background-color: derive(-BUY-BUTTON-BACKGROUND, -22%);
+}
+
+.description-label {
+    -fx-text-fill:  derive(-default-text-fill-black, 80%);;
+    -fx-font-size: 14px;
+}
+
+.list-view, .split-pane { -fx-background-insets: 0; -fx-padding: 0; }
+
+.searching-combo-box .list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-spacing: 0;
+    -fx-border-insets: 0;
+    -fx-background-insets: 0;
 }

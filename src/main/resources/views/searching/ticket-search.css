@@ -1,0 +1,16 @@
+@import url("../main.css");
+
+.searching-combo-box .combo-box-popup .list-view {
+    /*todo: сделать минимальный размер выпадающего спика*/
+}
+.searching-combo-box .list-view .list-cell:filled:hover {
+    -fx-background-color: -default-background-color;
+}
+
+#ticketTypeListView {
+    -fx-selection-bar-non-focused: -default-background-color;
+    -fx-control-inner-background: -default-background-color;
+    -fx-selection-bar: -default-background-color;
+    -fx-control-inner-background-alt: derive(-fx-control-inner-background, 10%);
+}
+

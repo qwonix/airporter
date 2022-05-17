@@ -1,6 +1,17 @@
-.flowPaneAirport {
-    -fx-border-radius: 25 25 25 25;
-    -fx-background-radius: 25 25 25 25;
-    -fx-border-color: black;
-    -fx-border-width: 1px;
+@import url("../../main.css");
+
+#airportParent {
+    -fx-pref-height: 30;
+    -fx-pref-width: 230;
+    -fx-padding: 5 10 5 10;
+}
+
+#airportCountry {
+    -fx-font-weight: 500;
+    -fx-text-fill:  derive(-default-text-fill-black, 80%);;
+}
+
+#airportId {
+    -fx-font-weight: 900;
+    -fx-text-fill: -strong-description-grey-label;
 }

@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.HBox?>
-<FlowPane alignment="CENTER" columnHalignment="CENTER"
-          prefHeight="20.0"
-          prefWidth="60.0" styleClass="flowPaneAirport"
-          stylesheets="@airport-cell.css"
-          xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="ru.qwonix.suai.airporter.controller.searching.AirportCellController">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-    <HBox alignment="CENTER_RIGHT">
-        <Label fx:id="airportCity" alignment="CENTER_RIGHT"/>
-        <Label fx:id="airportCountry" alignment="CENTER_RIGHT"/>
-    </HBox>
-
-    <Label fx:id="airportId" alignment="CENTER_LEFT"/>
-
-</FlowPane>
+<BorderPane fx:id="airportParent" stylesheets="@airport-cell.css" xmlns="http://javafx.com/javafx/16"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ru.qwonix.suai.airporter.controller.searching.AirportCellController">
+    <left>
+        <HBox alignment="CENTER">
+            <Label fx:id="airportCity" styleClass="airport-city-label" text="Санкт-Петербург"/>
+            <Label styleClass="airport-city-label" text=", "/>
+            <Label fx:id="airportCountry" text="Россия"/>
+        </HBox>
+    </left>
+    <right>
+        <Label fx:id="airportId" text="LED" BorderPane.alignment="CENTER"/>
+    </right>
+</BorderPane>

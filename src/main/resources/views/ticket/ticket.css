@@ -1,49 +1,62 @@
-.root {
-    background-color: #EFF1F4;
-}
+@import url("../main.css");
 
-.priceLabel {
-    -fx-font-size: 28px;
-}
-
-.buyButton {
-    -fx-background-color: #fc6e32;
-    -fx-font-size: 28px;
-    -fx-text-fill: white;
-    -fx-border-radius: 22;
-}
-
-.soldButton {
-    -fx-background-color: #0c73fe;
-}
-
-.buyButton:hover {
-    -fx-background-color: #FF6F32;
-}
-.buyButton:pressed {
-    -fx-background-color: #ec662c;
-}
-
-.roundedBox {
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
-    -fx-background-color: white;
-    -fx-border-color: black;
-    -fx-padding: 15;
-    -fx-spacing: 10;
-}
-
-.ticketTitleLabel {
-    -fx-font-size: 19px;
+#ticketSearchParent {
+    -fx-padding: 30;
 
 }
 
-.titleLabel {
-    -fx-text-fill: black;
+
+#backButton {
+    -fx-font-size: 14px;
+    -fx-border-radius: 7;
+    -fx-padding: 7 15 7 15;
+    -fx-background-color: coral;
+}
+
+.title1 {
+    -fx-font-weight: 600;
+    -fx-text-fill: -default-text-fill-black;
     -fx-font-size: 17px;
 }
 
-.descriptionLabel {
-    -fx-text-fill: grey;
-    -fx-font-size: 13px;
+.title2 {
+    -fx-text-fill: -strong-description-grey-label;
+    -fx-font-size: 14px;
+}
+
+.airport-city-label {
+    -fx-font-weight: 400;
+    -fx-font-size: 22;
+}
+
+.airportBox {
+    -fx-spacing: 12;
+    -fx-border-insets: 22px;
+    -fx-background-insets: 22px;
+}
+
+#flightRoundedBox {
+    -fx-pref-height: 120;
+    -fx-pref-width: 430;
+}
+
+#seatComboBox {
+    -fx-pref-width: 60;
+}
+
+#seatComboBox .list-view .list-cell {
+    -fx-alignment: center;
+    -fx-pref-width: 50;
+    -fx-pref-height: 30;
+}
+
+#seatComboBox .list-view .list-cell:selected,
+#seatComboBox .list-view .list-cell:hover {
+    -fx-text-fill: -default-text-fill-black;
+    -fx-background-color: -default-selected-cell-background;
+}
+
+#seatComboBox .list-view .list-cell:disabled {
+    -fx-text-fill: derive(-default-text-fill-black, 80%);
+
 }
