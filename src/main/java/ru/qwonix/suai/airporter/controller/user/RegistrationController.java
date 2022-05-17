@@ -83,7 +83,8 @@ public class RegistrationController implements Initializable {
         if (isValid) {
             Passenger passenger = new Passenger();
             passenger.setUsername(username);
-            passenger.setPassword(password);
+            String encodedPassword = ControllerUtils.encodePassword(password);
+            passenger.setPassword(encodedPassword);
             passenger.setPhone(phone);
             passenger.setEmail(email);
             passenger.setPassport(passport);
@@ -202,8 +203,7 @@ public class RegistrationController implements Initializable {
         if (!phoneMatcher.find()) {
             phoneCaption.setText("Формат номера: +7 (ххх) ххх-хх-хх");
             return false;
-        }
-        else if (passengerDao.existsPassengerByPhone(phone)) {
+        } else if (passengerDao.existsPassengerByPhone(phone)) {
             phoneCaption.setText("Номер телефона занят");
             return false;
         }
@@ -249,8 +249,7 @@ public class RegistrationController implements Initializable {
         if (!passportMatcher.find()) {
             passportCaption.setText("Введите корректный номер паспорта");
             return false;
-        }
-        else if (passengerDao.existsPassengerByPassport(passport)) {
+        } else if (passengerDao.existsPassengerByPassport(passport)) {
             passportCaption.setText("Паспорт уже используется");
             return false;
         }
