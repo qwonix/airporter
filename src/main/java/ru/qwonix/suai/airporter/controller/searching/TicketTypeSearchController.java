@@ -7,8 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.controlsfx.control.SearchableComboBox;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,6 +23,8 @@ import ru.qwonix.suai.airporter.model.entity.TicketType;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -42,6 +44,10 @@ public class TicketTypeSearchController implements Initializable {
     private ListView<TicketType> ticketTypeListView;
     @FXML
     private SearchableComboBox<Airport> departureSearchCB, arrivalSearchCB;
+    @FXML
+    private DatePicker departureDatePicker;
+    @FXML
+    private Label searchComboBoxCaption;
 
     @Value("classpath:/views/searching/ticketTypeCell/ticket-type-cell-layout.fxml")
     private Resource ticketTypeCellView;
@@ -64,6 +70,28 @@ public class TicketTypeSearchController implements Initializable {
         ticketTypeListViewInit();
         airportSearchableComboBoxInit();
     }
+
+    @FXML
+    private void onFindButtonClicked(MouseEvent mouseEvent) {
+        Airport departureAirport = departureSearchCB.getSelectionModel().getSelectedItem();
+        Airport arrivalAirport = arrivalSearchCB.getSelectionModel().getSelectedItem();
+
+        List<TicketType> ticketTypes;
+        if (departureAirport == null || arrivalAirport == null) {
+            searchComboBoxCaption.setText("Выберите аэропорты");
+            return;
+        } else if (departureDatePicker.getValue() == null) {
+            searchComboBoxCaption.setText("Выберите дату вылета");
+            return;
+        }
+
+        ticketTypes = ticketTypeDao.findAllByDepartureAirportAndArrivalAirportAndDepartureDate
+                (departureAirport, arrivalAirport, departureDatePicker.getValue());
+
+        ticketTypeListView.setItems(FXCollections.observableArrayList(ticketTypes));
+        searchComboBoxCaption.setText(null);
+    }
+
 
     private void ticketTypeListViewInit() {
         ticketTypeListView.setCellFactory(param -> new ListCell<>() {
@@ -112,6 +140,22 @@ public class TicketTypeSearchController implements Initializable {
 
         ObservableList<Airport> airports = FXCollections.observableArrayList(
                 airportDao.findAll(Sort.by(Sort.Direction.ASC, "city")));
+
+
+        departureDatePicker.setDayCellFactory(datePicker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+                if (!empty && item != null) {
+//                    if (LocalDate )
+//                        this.setDisable();
+                } else {
+                    this.setGraphic(null); // duplication element bug fix
+                }
+
+//                setDisable(item.isAfter(maxDate) || item.isBefore(minDate));
+            }
+        });
 
         departureSearchCB.setItems(airports);
         arrivalSearchCB.setItems(airports);
@@ -189,4 +233,6 @@ public class TicketTypeSearchController implements Initializable {
             }
         };
     }
+
+
 }

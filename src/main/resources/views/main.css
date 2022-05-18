@@ -11,6 +11,12 @@
     -fx-background-color: -default-background-color;
 }
 
+.fieldValidation {
+    -fx-font-weight: 300;
+    -fx-text-fill: #ff4343;
+}
+
+
 .margin-box {
     -fx-padding: 20;
     -fx-spacing: 10;
@@ -62,11 +68,14 @@
 }
 
 .description-label {
-    -fx-text-fill:  derive(-default-text-fill-black, 80%);;
+    -fx-text-fill: derive(-default-text-fill-black, 80%);;
     -fx-font-size: 14px;
 }
 
-.list-view, .split-pane { -fx-background-insets: 0; -fx-padding: 0; }
+.list-view, .split-pane {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
 
 .searching-combo-box .list-view .list-cell {
     -fx-background-color: transparent;

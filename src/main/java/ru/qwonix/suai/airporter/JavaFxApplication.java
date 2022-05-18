@@ -22,6 +22,7 @@ public class JavaFxApplication extends Application {
 
     @Override
     public void start(Stage stage) {
+        stage.setAlwaysOnTop(true);
         applicationContext.publishEvent(new StageReadyEvent(stage));
     }
 

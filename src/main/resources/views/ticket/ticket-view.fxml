@@ -31,7 +31,7 @@
             </VBox>
             <VBox styleClass="rounded-box">
                 <Label styleClass="title1" text="Место"/>
-                <SearchableComboBox fx:id="seatComboBox"/>
+                <SearchableComboBox fx:id="seatComboBox" maxWidth="70"/>
             </VBox>
         </VBox>
     </left>
