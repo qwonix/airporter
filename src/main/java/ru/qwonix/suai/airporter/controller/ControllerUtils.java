@@ -23,12 +23,10 @@ import java.util.Optional;
 @Component
 public class ControllerUtils {
 
+    private final ApplicationContext applicationContext;
     @Setter
     @Getter
     private Optional<Passenger> passenger = Optional.empty();
-
-    private final ApplicationContext applicationContext;
-
     @Value("classpath:/views/main-view.fxml")
     private Resource mainView;
 

@@ -4,10 +4,10 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <BorderPane
+        xmlns:fx="http://javafx.com/fxml/1"
         stylesheets="@airport-cell.css"
         fx:id="airportParent"
         xmlns="http://javafx.com/javafx/18"
-        xmlns:fx="http://javafx.com/fxml/1"
         fx:controller="ru.qwonix.suai.airporter.controller.searching.AirportSelectedCellController">
     <left>
         <HBox alignment="CENTER">

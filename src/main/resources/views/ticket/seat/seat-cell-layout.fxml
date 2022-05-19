@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-
-<HBox alignment="CENTER" stylesheets="@seat-cell.css" xmlns="http://javafx.com/javafx/16"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.qwonix.suai.airporter.controller.ticket.SeatCellController">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<HBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" stylesheets="@seat-cell.css"
+      xmlns="http://javafx.com/javafx/16" fx:controller="ru.qwonix.suai.airporter.controller.ticket.SeatCellController">
     <HBox alignment="CENTER">
         <ImageView fitHeight="25.0" fitWidth="25.0" opacity="0.9">
             <Image url="@../../../img/ticket/seat.png"/>

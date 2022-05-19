@@ -3,26 +3,28 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane stylesheets="@login.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@login.css" xmlns="http://javafx.com/javafx/16"
             fx:controller="ru.qwonix.suai.airporter.controller.user.AuthorizationController">
     <center>
         <VBox alignment="CENTER" spacing="10.0">
             <VBox alignment="CENTER_LEFT">
                 <Label text="Имя пользователя"/>
-                <TextField fx:id="usernameField" onKeyReleased="#onUsernameChanged" prefHeight="30.0" prefWidth="200.0" promptText="Логин"/>
-                <Label fx:id="usernameCaption" styleClass="fieldValidation" />
+                <TextField fx:id="usernameField" onKeyReleased="#onUsernameChanged" prefHeight="30.0" prefWidth="200.0"
+                           promptText="Логин"/>
+                <Label fx:id="usernameCaption" styleClass="fieldValidation"/>
             </VBox>
             <VBox alignment="CENTER_LEFT">
                 <Label text="Пароль"/>
                 <PasswordField fx:id="passwordField" prefHeight="30.0" prefWidth="200.0" promptText="Пароль"/>
-                <Label fx:id="passwordCaption" styleClass="fieldValidation" />
+                <Label fx:id="passwordCaption" styleClass="fieldValidation"/>
 
             </VBox>
             <HBox alignment="CENTER_RIGHT">
                 <Button onMouseClicked="#onForgetPasswordButton_Clicked" prefHeight="30.0" prefWidth="80.0"
                         text="Забыли пароль?"/>
                 <Region HBox.hgrow="ALWAYS"/>
-                <Button onMouseClicked="#onLoginButton_Clicked" prefHeight="30.0" prefWidth="80.0" maxWidth="150" text="Войти"/>
+                <Button onMouseClicked="#onLoginButton_Clicked" prefHeight="30.0" prefWidth="80.0" maxWidth="150"
+                        text="Войти"/>
             </HBox>
             <Separator>
                 <VBox.margin>

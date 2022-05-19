@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import org.controlsfx.control.*?>
-
-<BorderPane xmlns="http://javafx.com/javafx/16"
-            xmlns:fx="http://javafx.com/fxml/1"
+<?import org.controlsfx.control.SearchableComboBox?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/16"
             fx:id="ticketViewParent"
             stylesheets="@ticket.css"
             fx:controller="ru.qwonix.suai.airporter.controller.ticket.TicketController">

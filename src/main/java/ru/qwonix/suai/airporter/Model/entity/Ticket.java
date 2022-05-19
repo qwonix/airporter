@@ -21,14 +21,13 @@ public class Ticket {
     @ManyToOne
     @JoinColumn(name = "passenger_id")
     private Passenger passenger;
+    @ManyToOne
+    @JoinColumn(name = "ticket_type_id")
+    private TicketType ticketType;
 
     @Override
     public String toString() {
         // todo: убрать такой кривой способ и сделать нормальное переопеределение ячеки searchable combobox
         return seatId;
     }
-
-    @ManyToOne
-    @JoinColumn(name = "ticket_type_id")
-    private TicketType ticketType;
 }

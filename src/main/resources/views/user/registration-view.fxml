@@ -3,8 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane stylesheets="@login.css" xmlns="http://javafx.com/javafx/16"
-            xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" stylesheets="@login.css"
+            xmlns="http://javafx.com/javafx/16"
             fx:controller="ru.qwonix.suai.airporter.controller.user.RegistrationController">
     <top>
         <Label text="Регистрация"/>

@@ -8,7 +8,7 @@
 
 #airportCountry {
     -fx-font-weight: 500;
-    -fx-text-fill:  derive(-default-text-fill-black, 80%);;
+    -fx-text-fill: derive(-default-text-fill-black, 80%);;
 }
 
 #airportId {
